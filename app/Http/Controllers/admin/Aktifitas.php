@@ -12,7 +12,6 @@ class Aktifitas extends Controller
     {
         $aktifitas = AktifitasModel::all();
 
-
         return view('admin/aktifitas/index', [
             'title' => 'Aktifitas',
             'aktifitas' => $aktifitas,

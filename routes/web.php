@@ -1,5 +1,5 @@
-
 <?php
+
 use App\Http\Controllers\admin\Aktifitas;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\DataUser\Magang;
@@ -16,10 +16,9 @@ Route::get('/', function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [Admin::class, 'index'])->name('dashboard');
 
-
     // aktifitas
-    Route::prefix('aktifitas')->name('aktifitas.')->group(function(){
-        Route::get('/', [Aktifitas::class,'index'])->name('index');
+    Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
+        Route::get('/', [Aktifitas::class, 'index'])->name('index');
     });
 
     Route::prefix('datauser')->name('datauser.')->group(function () {
@@ -52,6 +51,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // User Routes
 Route::prefix('user')->name('user.')->group(function () {
     Route::get('/login', [User::class, 'login'])->name('loginuser');
-
     Route::get('/changepass', [User::class, 'changepass'])->name('changepass');
 });
