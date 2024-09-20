@@ -14,7 +14,7 @@
 <body>
     <div class="min-h-screen flex items-center justify-center bg-white md:bg-gray-100">
         <div class="md:bg-white p-8 rounded-lg sm:shadow-2xl w-full max-w-md">
-            <h2 class="text-2xl font-bold text-center mb-4">Logbook Service</h2>
+            <h2 class="text-2xl font-bold text-center mb-4">Logbook</h2>
             <p class="text-center text-gray-600 mb-6">Silahkan Login</p>
 
             <form action="/" method="POST">
