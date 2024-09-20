@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('uuid_user', 255);
             $table->date('tanggal');
+            $table->string('judul', 255);
             $table->text('keterangan');
             $table->string('foto');
             $table->boolean('is_verified');

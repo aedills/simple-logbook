@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Aktifitas;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\AktifitasModel;
+use Illuminate\Http\Request;
 
 class Aktifitas extends Controller
 {
     public function index(Request $request)
     {
-        $aktifitas = AktifitasModel::all();
-
         return view('admin/aktifitas/index', [
             'title' => 'Aktifitas',
-            'aktifitas' => $aktifitas,
+            'aktifitas' => AktifitasModel::all()
         ]);
     }
 }
