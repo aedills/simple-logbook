@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Managemen Data Staf</h5>
-                            <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-plus-lg me-1"></i> Add</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-1"></i> Add</button>
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -60,6 +60,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Staf</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary">Tambah</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Basic Modal-->
 
 
 
