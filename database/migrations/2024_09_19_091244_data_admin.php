@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('nama', 255);
             $table->string('username', 25)->unique();
             $table->string('p4ssw0rd', 255);
+            $table->boolean('is_change_pass');
             $table->string('foto', 255)->default('default.png');
-            $table->enum('role', ['admin', 'ka.upt']);
+            $table->enum('role', ['admin', 'staf']);
             $table->timestamps();
         });
     }
