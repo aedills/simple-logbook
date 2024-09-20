@@ -1,7 +1,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="{{route('admin.dashboard')}}">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
         </a>
@@ -15,17 +15,17 @@
         </a>
         <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-                <a href="">
+                <a href="{{route('admin.datauser.staf.index')}}">
                     <i class="bi bi-circle"></i><span>Staf</span>
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{route('admin.datauser.magang.index')}}">
                     <i class="bi bi-circle"></i><span>Magang</span>
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{route('admin.datauser.pkl.index')}}">
                     <i class="bi bi-circle"></i><span>PKL/SMK</span>
                 </a>
             </li>
@@ -38,12 +38,12 @@
         </a>
         <ul id="aktifitas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-                <a href="forms-elements.html">
+                <a href="">
                     <i class="bi bi-circle"></i><span>Pending Aktifitas</span>
                 </a>
             </li>
             <li>
-                <a href="forms-layouts.html">
+                <a href="">
                     <i class="bi bi-circle"></i><span>Aktifitas</span>
                 </a>
             </li>
@@ -53,7 +53,7 @@
     <li class="nav-heading">Data</li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="">
             <i class="bi bi-person"></i>
             <span>Profile</span>
         </a>
