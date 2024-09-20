@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\DataUser\Magang;
 use App\Http\Controllers\DataUser\Pkl;
 use App\Http\Controllers\DataUser\Staf;
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,4 +40,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/delete', [Pkl::class, 'delete'])->name('update');
         });
     });
+});
+
+// User Routes
+Route::prefix('user')->name('user.')->group(function () {
+    Route::get('/login', [User::class, 'login'])->name('loginuser');
 });
