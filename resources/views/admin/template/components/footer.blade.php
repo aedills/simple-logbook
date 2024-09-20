@@ -21,3 +21,29 @@
 
     <!-- Template Main JS File -->
     <script src="{{ url('res/assets/js/main.js') }}"></script>
+
+    <!-- J-Query -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session()->has('success'))
+    <script>
+        Swal.fire({
+            title: "Success",
+            text: "{{session()->get('success')}}",
+            icon: "success"
+        });
+    </script>
+    @endif
+
+    @if (session()->has('error'))
+    <script>
+        Swal.fire({
+            title: "Error",
+            text: "{{session()->get('error')}}",
+            icon: "error"
+        });
+    </script>
+    @endif
