@@ -52,4 +52,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // User Routes
 Route::prefix('user')->name('user.')->group(function () {
     Route::get('/login', [User::class, 'login'])->name('loginuser');
+
+    Route::get('/changepass', [User::class, 'changepass'])->name('changepass');
 });

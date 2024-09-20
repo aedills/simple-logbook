@@ -12,4 +12,11 @@ class User extends Controller
             'title' => 'Login',
         ]);
     }
+
+    public function changepass(Request $request)
+    {
+        return view('user/changepass', [
+            'title' => 'Ganti Password',
+        ]);
+    }
 }
