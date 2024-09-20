@@ -47,7 +47,6 @@
                                         <td>Foto</td>
                                         <td>12 Aug 2024</td>
                                         <td>18 Des 2024</td>
-                                        <td>Foto</td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center gap-2">
                                                 <button type="button" class="btn btn-outline-info btn-sm"><i
