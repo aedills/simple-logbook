@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\admin\Aktifitas;
 use App\Http\Controllers\Aktifitas\Aktifitas as AktifitasAktifitas;
+use App\Http\Controllers\Aktifitas\AktifitasPending;
 use App\Http\Controllers\DataUser\Magang;
 use App\Http\Controllers\DataUser\Pkl;
 use App\Http\Controllers\DataUser\Staf;
@@ -22,7 +23,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // aktifitas
     Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
         Route::get('/', [AktifitasAktifitas::class, 'index'])->name('index');
+        Route::get('/pending_aktifitas', [AktifitasPending::class, 'index'])->name('pending');
+        Route::get('/update/{uuid}', [AktifitasPending::class, 'updateStatus'])->name('update'); // Pastikan ada {uuid}
     });
+    
+    
+
+    
 
     Route::prefix('datauser')->name('datauser.')->group(function () {
         // Staf

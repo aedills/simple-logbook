@@ -38,7 +38,7 @@
         </a>
         <ul id="aktifitas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-                <a href="">
+                <a href="{{ route('admin.aktifitas.pending')}}">
                     <i class="bi bi-circle"></i><span>Pending Aktifitas</span>
                 </a>
             </li>

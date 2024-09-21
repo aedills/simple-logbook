@@ -8,7 +8,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Aktifitas</li>
+                    <li class="breadcrumb-item active">{{ $title }}</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -18,8 +18,8 @@
                 <div class="card-title">
                     <h5 style="margin-left:20px">Semua Aktifitas</h5>
                 </div>
-                <div class="card-body">
-                    <table class="table datatable datatable-table">
+                <div class="card-body table-responsive">
+                    <table class="table datatable">
                         <thead>
                             <tr>
                                 <th>Nama</th>
@@ -35,9 +35,20 @@
                                     <td>{{ $item->uuid_user }}</td>
                                     <td>{{ $item->tanggal }}</td>
                                     <td>{{ $item->keterangan }}</td>
-                                    <td>{{ $item->foto }}</td>
+                                    <td>@if ($item->foto)
+                                        <a href="{{ asset('assets/images/' . $item->foto) }}" target="_blank">
+                                            <button class="btn btn-outline-primary">Lihat Foto
+                                            </button>    
+                                        </a>
+                                    @else
+                                        Tidak ada foto
+                                    @endif
+                                    </td>
                                     <td class="green">
                                         <span class="badge {{ $item->is_verified ? 'bg-success' : 'bg-warning' }}">
+                                            <i class="bi bi-check-circle me-1">
+                                                
+                                            </i>
                                             {{ $item->is_verified ? 'Verified' : 'Pending' }}
                                         </span>
                                     </td>
