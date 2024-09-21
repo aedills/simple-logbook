@@ -30,7 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/staf', [Staf::class, 'index'])->name('index');
             Route::post('/store', [Staf::class, 'store'])->name('store');
             Route::post('/update', [Staf::class, 'update'])->name('update');
-            Route::post('/delete', [Staf::class, 'delete'])->name('update');
+            Route::post('/delete', [Staf::class, 'delete'])->name('delete');
         });
 
         // Staf
