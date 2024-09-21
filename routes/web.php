@@ -60,7 +60,11 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
 
     Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {
-        Route::get('/upload', [Upload::class, 'index'])->name('upload');
+        Route::prefix('upload')->name('upload.')->group(function () {
+            Route::get('/', [Upload::class, 'index'])->name('index');
+            Route::post('/store', [Upload::class, 'store'])->name('store');
+        });
+
         Route::get('/history', [History::class, 'index'])->name('history');
     });
 });

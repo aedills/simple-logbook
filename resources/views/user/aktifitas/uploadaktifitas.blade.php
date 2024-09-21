@@ -2,11 +2,11 @@
 
 @section('content')
 <style>
-.img-preview {
-    max-width: 20%;
-    height: auto;
-    margin-top: 10px;
-}
+    .img-preview {
+        max-width: 20%;
+        height: auto;
+        margin-top: 10px;
+    }
 </style>
 <main id="main" class="main">
 
@@ -25,22 +25,23 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form class="p-4">
+                        <form enctype="multipart/form-data" action="{{ route('user.aktifitasuser.upload.store') }}" method="POST" class="p-4">
+                            @csrf
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Judul Kegiatan</label>
-                                <input required type="text" class="form-control" id="exampleInputEmail1"
+                                <input required name="judul" type="text" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" placeholder="Masukkan judul kegiatan">
                             </div>
                             <br>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Deskripsi</label>
-                                <input required type="password" class="form-control" id="exampleInputPassword1"
+                                <input required name="deskripsi" type="text" class="form-control" id="exampleInputPassword1"
                                     placeholder="Jelaskan kegiatan kamu">
                             </div>
                             <br>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Gambar</label>
-                                <input required class="form-control" type="file" id="formFile" accept="image/*"
+                                <input required name="gambar" class="form-control" type="file" id="formFile"
                                     onchange="previewImage(event)">
                             </div>
                             <div class="img-container">
@@ -50,7 +51,7 @@
                             <br>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Tanggal</label>
-                                <input required type="date" class="form-control" id="tanggal">
+                                <input required name="tanggal" type="date" class="form-control" id="tanggal">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Upload</button>
@@ -63,28 +64,28 @@
 </main>
 
 <script>
-function previewImage(event) {
-    const input = event.target;
-    const imgPreview = document.getElementById('imgPreview');
+    function previewImage(event) {
+        const input = event.target;
+        const imgPreview = document.getElementById('imgPreview');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            imgPreview.src = e.target.result;
-            imgPreview.style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 
-const dateInput = document.getElementById('tanggal');
-const today = new Date();
-const formattedDate = today.toISOString().split('T')[0];
-dateInput.min = formattedDate;
+    const dateInput = document.getElementById('tanggal');
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    dateInput.min = formattedDate;
 
-dateInput.addEventListener('change', function() {
-    console.log(dateInput.value);
-});
+    dateInput.addEventListener('change', function() {
+        console.log(dateInput.value);
+    });
 </script>
 
 @endsection
