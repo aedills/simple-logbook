@@ -9,5 +9,6 @@ class HistoryAktifitas extends Model
 {
     use HasFactory;
     protected $table = 'data_aktifitas';
-    protected $primary_key = 'uuid';
+    protected $primary_key = 'id';
+    protected $fillable = ['uuid', 'uuid_user', 'tanggal', 'judul', 'keterangan', 'foto', 'is_verified'];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\AktifitasUser;
 
 use App\Http\Controllers\Controller;
+use App\Models\User\HistoryAktifitas;
 use Illuminate\Http\Request;
 
 class History extends Controller
@@ -11,6 +12,7 @@ class History extends Controller
     {
         return view('user/aktifitas/historyaktifitas', [
             'title' => 'History Aktifitas',
+            'history' => HistoryAktifitas::get(),
         ]);
     }
 }
