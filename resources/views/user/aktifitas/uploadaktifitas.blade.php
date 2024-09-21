@@ -41,7 +41,7 @@
                             <br>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Gambar</label>
-                                <input required name="gambar" class="form-control" type="file" id="formFile"
+                                <input required name="gambar" class="form-control" type="file" id="formFile" accept="image/*"
                                     onchange="previewImage(event)">
                             </div>
                             <div class="img-container">
