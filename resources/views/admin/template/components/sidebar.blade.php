@@ -53,7 +53,7 @@
     <li class="nav-heading">Data</li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="{{route('admin.profile')}}">
             <i class="bi bi-person"></i>
             <span>Profile</span>
         </a>

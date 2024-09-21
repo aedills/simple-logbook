@@ -9,7 +9,7 @@ class Admin extends Model
 {
     use HasFactory;
     protected $table = 'data_admin';
-    protected $primary_key = 'uuid';
+    protected $primaryKey  = 'id';
     protected $fillable = [
         'uuid', 'nama', 'username', 'p4ssw0rd', 'is_change_pass', 'foto', 'role'
     ];

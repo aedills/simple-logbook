@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_aktifitas', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->id();
+            $table->uuid();
             $table->string('uuid_user', 255);
             $table->date('tanggal');
+            $table->string('judul', 255);
             $table->text('keterangan');
             $table->string('foto');
             $table->boolean('is_verified');

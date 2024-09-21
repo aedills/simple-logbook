@@ -27,6 +27,3 @@
 
 <!-- Template Main CSS File -->
 <link href="{{ url('res/assets/css/style.css') }}" rel="stylesheet">
-
-<!-- J-Query -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
