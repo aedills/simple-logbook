@@ -12,4 +12,11 @@ class Admin extends Controller
             'title' => 'Dashboard'
         ]);
     }
+
+    public function profile(Request $request)
+    {
+        return view('admin/profile', [
+            'title' => 'Profile'
+        ]);
+    }
 }
