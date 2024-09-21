@@ -59,7 +59,6 @@ class Staf extends Controller
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         }
     }
@@ -92,10 +91,8 @@ class Staf extends Controller
                 $profilePath = 'assets/profiles/';
                 $profile->move(public_path($profilePath), $profilename);
 
-                // Update the profile photo in the database
                 $staf->foto = $profilename;
 
-                // Delete the old photo if it's not the default
                 if ($oldFoto && $oldFoto != 'default.png') {
                     if (file_exists(public_path($profilePath . $oldFoto))) {
                         unlink(public_path($profilePath . $oldFoto));
@@ -113,7 +110,6 @@ class Staf extends Controller
         } catch (ValidationException $e) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan ketika memperbarui data')->withInput();
         }
     }
@@ -140,7 +136,6 @@ class Staf extends Controller
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada parameter data')->withInput();
         } catch (\Exception $err) {
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan ketika menghapus data')->withInput();
         }
     }
