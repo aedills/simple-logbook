@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\Admin;
@@ -8,6 +7,10 @@ use App\Http\Controllers\DataUser\Magang;
 use App\Http\Controllers\DataUser\Pkl;
 use App\Http\Controllers\DataUser\Staf;
 use App\Http\Controllers\User;
+use App\Http\Controllers\User\AktifitasUser\History;
+use App\Http\Controllers\User\AktifitasUser\Upload;
+use App\Http\Controllers\User\Changepass;
+use App\Http\Controllers\User\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +20,6 @@ Route::get('/', function () {
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [Admin::class, 'index'])->name('dashboard');
-
 
     // aktifitas
     Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
@@ -53,7 +55,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // User Routes
 Route::prefix('user')->name('user.')->group(function () {
-    Route::get('/login', [User::class, 'login'])->name('loginuser');
+    Route::get('/', [User::class, 'index'])->name('dashboarduser');
+    Route::get('/login', [Login::class, 'index'])->name('loginuser');
+    Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
 
-    Route::get('/changepass', [User::class, 'changepass'])->name('changepass');
+    Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {
+        Route::get('/upload', [Upload::class, 'index'])->name('upload');
+        Route::get('/history', [History::class, 'index'])->name('history');
+    });
 });
