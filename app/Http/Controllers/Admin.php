@@ -19,4 +19,16 @@ class Admin extends Controller
             'title' => 'Profile'
         ]);
     }
+
+    public function login(Request $request)
+    {
+        return view('admin/login', [
+            'title' => 'Admin | Login'
+        ]);
+    }
+
+    public function doLogin(Request $request)
+    {
+        dd($request);
+    }
 }
