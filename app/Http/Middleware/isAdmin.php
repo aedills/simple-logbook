@@ -17,7 +17,7 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->has('id')) {
+        if (!$request->session()->has('uuid')) {
             return redirect()->route('auth.login')->with('error', 'Anda harus login terlebih dahulu!');
         } else {
             if ($request->session()->has('role') == 'admin' || $request->session()->has('role') == 'staf') {
