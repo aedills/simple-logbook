@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin;
-use App\Http\Controllers\admin\Aktifitas;
-use App\Http\Controllers\Aktifitas\Aktifitas as AktifitasAktifitas;
+use App\Http\Controllers\Aktifitas\Aktifitas;
 use App\Http\Controllers\DataUser\Magang;
 use App\Http\Controllers\DataUser\Pkl;
 use App\Http\Controllers\DataUser\Staf;
@@ -17,14 +16,24 @@ Route::get('/', function () {
     return redirect('/admin');
 });
 
+// Auth
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::get('/', function () {
+        return redirect('/auth/login');
+    });
+    Route::get('login', [Admin::class, 'login'])->name('login');
+    Route::post('doLogin', [Admin::class, 'doLogin'])->name('doLogin');
+    Route::get('logout', [Admin::class, 'logout'])->name('logout');
+});
+
 // Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function () {
     Route::get('/', [Admin::class, 'index'])->name('dashboard');
     Route::get('/profile', [Admin::class, 'profile'])->name('profile');
 
     // aktifitas
     Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
-        Route::get('/', [AktifitasAktifitas::class, 'index'])->name('index');
+        Route::get('/', [Aktifitas::class, 'index'])->name('index');
     });
 
     Route::prefix('datauser')->name('datauser.')->group(function () {
