@@ -13,7 +13,7 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ url('assets/profiles/').session('foto') }}" alt="{{ session('username') }}" class="rounded-circle">
+                    <img src="{{ url('assets/profiles/').'/'.session('foto') }}" alt="{{ session('username') }}" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ session('nama') }}</span>
                 </a>
 
