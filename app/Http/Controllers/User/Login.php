@@ -36,6 +36,8 @@ class Login extends Controller
                         'username' => $user->username,
                         'role' => $user->role,
                         'foto' => $user->foto,
+                        'tgl_mulai' => $user->tgl_mulai,
+                        'tgl_selesai' => $user->tgl_selesai,
                     ]);
 
                     if (!$user->is_change_pass) {
