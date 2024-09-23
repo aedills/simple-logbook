@@ -10,8 +10,19 @@ class AktifitasPending extends Controller
 {
     public function index(Request $request)
 {
-    // Menampilkan data dengan is_verified = 0 (aktifitas yang belum diverifikasi)
-    $aktifitas = AktifitasModel::where('is_verified', 0)->get();
+    $aktifitas = AktifitasModel::where('is_verified', 0)->join('data_user', 'data_user.uuid', '=', 'data_aktifitas.uuid_user')
+    ->orderBy('data_aktifitas.created_at', 'desc')
+    ->select(
+        'data_aktifitas.id',
+        'data_aktifitas.uuid',
+        'data_aktifitas.uuid_user',
+        'data_aktifitas.tanggal',
+        'data_aktifitas.judul',
+        'data_aktifitas.keterangan',
+        'data_aktifitas.foto',
+        'data_aktifitas.is_verified',
+        'data_user.nama',
+    )->get();
 
     return view('admin/aktifitas/pending', [
         'title' => 'Aktifitas Pending',
@@ -21,8 +32,6 @@ class AktifitasPending extends Controller
 
 public function updateStatus(Request $request)
 {
- // Debugging untuk melihat UUID yang diterima
-    
     $aktifitas = AktifitasModel::where('id', $request->id)->first();
 
     if ($aktifitas) {
