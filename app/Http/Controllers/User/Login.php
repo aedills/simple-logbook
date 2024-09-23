@@ -27,26 +27,40 @@ class Login extends Controller
 
             $user = DataUser::where('username', $request->input('username'))->first();
 
-            if ($user && Hash::check($request->input('password'), $user->p4ssw0rd)) {
+            if ($user) {
+                if (Hash::check($request->input('password'), $user->p4ssw0rd)) {
+                    $request->session()->put([
+                        'uuid'   => $user->uuid,
+                        'id'   => $user->id,
+                        'nama' => $user->nama,
+                        'username' => $user->username,
+                        'role' => $user->role,
+                        'foto' => $user->foto,
+                    ]);
 
-                $request->session()->put([
-                    'uuid'   => $user->uuid,
-                    'nama' => $user->nama,
-                    'username' => $user->username,
-                    'role' => $user->role,
-                    'foto' => $user->foto,
-                ]);
-
-                if (!$user->is_change_pass) {
-                    return redirect()->route('user.changepass');
+                    if (!$user->is_change_pass) {
+                        return redirect()->route('user.changepass');
+                    }
+                    return redirect()->route('user.dashboarduser');
+                } else {
+                    return back()->with('error', 'Password yang Anda masukkan salah. Silahkan coba lagi.')->withInput();
                 }
-
-                return redirect()->route('user.dashboarduser');
+            } else {
+                return back()->with('error', 'User tidak ditemukan. Silahkan hubungi admin.')->withInput();
             }
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika melakukan login')->withInput();
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect()->route('auth.userLogin')->with('success', 'Anda berhasil keluar!');
     }
 }

@@ -22,6 +22,7 @@
             <p class="text-center text-white md:text-gray-600 mb-6">Silahkan Login</p>
 
             <form action="{{route('auth.doUserLogin')}}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label for="username"
@@ -89,6 +90,34 @@
         }
     });
     </script>
+
+     <!-- SweetAlert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     @if (session()->has('success'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "success",
+            title: "{{ session()->get('success') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
+    </script>
+    @endif
+
+    @if (session()->has('error'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "error",
+            title: "{{ session()->get('error') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
+    </script>
+    @endif
 </body>
 
 </html>

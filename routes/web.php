@@ -30,7 +30,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     // User Auth
     Route::get('userLogin', [Login::class, 'index'])->name('userLogin');
     Route::post('doUserLogin', [Login::class, 'doLogin'])->name('doUserLogin');
-    Route::get('userLogout', [User::class, 'logout'])->name('userLogout');
+    Route::get('userLogout', [Login::class, 'logout'])->name('userLogout');
 });
 
 // Admin Routes
@@ -74,6 +74,8 @@ Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function (
 Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
     Route::get('/', [User::class, 'index'])->name('dashboarduser');
     Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
+    Route::post('/doChangePass', [Changepass::class, 'doChangePass'])->name('doChangePass');
+
 
     Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {
         Route::prefix('upload')->name('upload.')->group(function () {
