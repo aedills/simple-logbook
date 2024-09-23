@@ -17,7 +17,8 @@
             <h2 class="text-2xl font-bold text-center text-white md:text-black">Tunggu!</h2>
             <p class="text-center text-white md:text-gray-600 mb-6">Ganti password dulu yuk!</p>
 
-            <form action="/" method="POST">
+            <form action="{{route('user.doChangePass')}}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label for="password" class="block text-sm font-medium text-white md:text-gray-700">Password
@@ -59,6 +60,21 @@
             }
         });
     </script>
+
+     <!-- SweetAlert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session()->has('error'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "error",
+            title: "{{ session()->get('error') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
+    </script>
+    @endif
 </body>
 
 </html>

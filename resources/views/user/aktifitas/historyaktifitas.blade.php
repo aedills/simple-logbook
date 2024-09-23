@@ -36,21 +36,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($history as $list)
                                     <tr>
-                                        <td>Zaedil Febriansyah</td>
-                                        <td>aedils</td>
-                                        <td>Admin</td>
-                                        <td>Foto</td>
+                                        <td>{{ \Carbon\Carbon::parse($list->tanggal)->format('d-m-Y') }}</td>
+                                        <td>{{$list->judul}}</td>
+                                        <td>{{$list->keterangan}}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{$list->foto}}"><i class="bi bi-eye me-1"></i> Lihat</button>
+                                            </div>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    {{-- Image Modal --}}
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong>Foto</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img src="" id="image-preview" style="width: 40%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Create Modal -->
     <div class="modal fade" id="addModal" tabindex="-1">
@@ -103,5 +128,21 @@
 
 
 </main>
+
+<script>
+    $(document).ready(function() {
+        $('#imageModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var filename = button.data('bs-foto');
+            var path = "{{url('assets/aktifitasimage/')}}/";
+
+            console.log("Image URL:", path + filename); // Debugging line
+
+            var modal = $(this);
+            modal.find('#image-preview').attr('src', path + filename);
+        });
+});
+
+</script>
 
 @endsection

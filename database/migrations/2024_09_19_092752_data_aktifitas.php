@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('judul', 255);
             $table->text('keterangan');
-            $table->string('foto');
+            $table->string('foto')->default('default.png');
             $table->boolean('is_verified');
             $table->timestamps();
         });

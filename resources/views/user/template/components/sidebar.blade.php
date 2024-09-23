@@ -10,7 +10,7 @@
     <li class="nav-heading">Aktifitas</li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('user.aktifitasuser.upload')}}">
+        <a class="nav-link collapsed" href="{{route('user.aktifitasuser.upload.index')}}">
             <i class="bi bi-box-arrow-in-down"></i>
             <span>Upload Aktifitas</span>
         </a>
