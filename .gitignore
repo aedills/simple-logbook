@@ -3,7 +3,7 @@
 /public/build
 /public/hot
 /public/storage
-/public/aktifitasimage
+/public/assets/aktifitasimage
 /storage/*.key
 /vendor
 .env
