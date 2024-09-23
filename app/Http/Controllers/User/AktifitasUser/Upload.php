@@ -30,7 +30,7 @@ class Upload extends Controller
 
             $storeKegiatan = new UploadAktifitas();
             $storeKegiatan->uuid = Str::uuid();
-            $storeKegiatan->uuid_user = Str::uuid();
+            $storeKegiatan->uuid_user = $request->session()->get('uuid');
             $storeKegiatan->tanggal = $request->tanggal;
             $storeKegiatan->judul = $request->judul;
             $storeKegiatan->keterangan = $request->deskripsi;
