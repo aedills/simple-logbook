@@ -13,7 +13,7 @@ class DataAdmin extends Seeder
      */
     public function run(): void
     {
-        Admin::factory()->create([
+        Admin::create([
             'name' => 'Super Admin',
             'username' => 'admin',
             'p4ssw0rd' => '$2y$12$vfTNvOeY8nJIDkSJWdNAre8.mhqmoA1/Ttuo5ireTvPjAxnFwRCEK',
