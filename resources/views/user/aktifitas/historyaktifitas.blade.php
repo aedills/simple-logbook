@@ -91,7 +91,7 @@
         $('#imageModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var filename = button.data('bs-foto');
-            var path = "{{url('assets/aktifitasimage/')}}/";
+            var path = "{{url('assets/aktifitasimages/')}}/";
 
             console.log("Image URL:", path + filename); // Debugging line
 

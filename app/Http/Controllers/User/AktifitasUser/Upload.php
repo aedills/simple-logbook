@@ -41,7 +41,7 @@ class Upload extends Controller
                 $extension = $image->getClientOriginalExtension();
                 $cleanedFilename = Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME));
                 $imagename = uniqid() . $cleanedFilename . '.' . $extension;
-                $imagePath = 'assets/images/';
+                $imagePath = 'assets/aktifitasimages/';
                 $image->move($imagePath, $imagename);
                 $storeKegiatan->foto = $imagename;
             }
