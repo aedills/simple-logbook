@@ -55,6 +55,10 @@ class Admin extends Controller
                         'foto' => $admin->foto,
                     ]);
 
+                    if (!$admin->is_change_pass) {
+                        return redirect()->route('auth.changePass');
+                    }
+
                     return redirect()->route('admin.dashboard');
                 } else {
                     return back()->with('error', 'Password yang Anda masukkan salah. Silahkan coba lagi.')->withInput();
@@ -77,6 +81,31 @@ class Admin extends Controller
             ]);
         } else {
             return redirect()->route('auth.login')->with('error', 'Anda harus login terlebih dahulu!')->withInput();
+        }
+    }
+
+    public function doChangePass(Request $request)
+    {
+        try {
+            $request->validate([
+                'password' => 'required|string|max:255',
+            ]);
+
+            $admin = ModelsAdmin::where('uuid', $request->session()->get('uuid'))->first();
+
+            if (Hash::check($request->password, $admin->p4ssw0rd)) {
+                return back()->with('error', 'Password yang kamu masukkan tidak berubah! Masukkan password baru Anda.')->withInput();
+            } else {
+                $admin->p4ssw0rd = Hash::make($request->password);
+                $admin->is_change_pass = 1;
+                $admin->save();
+
+                return redirect()->route('admin.dashboard')->with('success', 'Berhasil mengubah password');
+            }
+        } catch (ValidationException $e) {
+            return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (\Exception $err) {
+            return back()->with('error', 'Terdapat kesalahan ketika melakukan login')->withInput();
         }
     }
 

@@ -28,6 +28,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('doLogin', [Admin::class, 'doLogin'])->name('doLogin');
     Route::get('logout', [Admin::class, 'logout'])->name('logout');
     Route::get('changePass', [Admin::class, 'changePass'])->name('changePass');
+    Route::post('doChangePass', [Admin::class, 'doChangePass'])->name('doChangePass');
 
     // User Auth
     Route::get('userLogin', [Login::class, 'index'])->name('userLogin');
