@@ -57,7 +57,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="tanggal">Tanggal</label>
                                 <div class="col-sm-10">
-                                    <input required name="tanggal" type="date" class="form-control" id="tanggal" value="{{ now()->format('Y-m-d') }}">
+                                    <input required name="tanggal" type="date" class="form-control" id="tanggal" min="{{session('tgl_mulai')}}" min="{{session('tgl_selesai')}}" value="{{ now()->format('Y-m-d') }}">
                                 </div>
                             </div>
                         </form>
@@ -88,14 +88,14 @@
         }
     }
 
-    const dateInput = document.getElementById('tanggal');
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    dateInput.min = formattedDate;
+    // const dateInput = document.getElementById('tanggal');
+    // const today = new Date();
+    // const formattedDate = today.toISOString().split('T')[0];
+    // dateInput.min = formattedDate;
 
-    dateInput.addEventListener('change', function() {
-        console.log(dateInput.value);
-    });
+    // dateInput.addEventListener('change', function() {
+    //     console.log(dateInput.value);
+    // });
 </script>
 
 @endsection
