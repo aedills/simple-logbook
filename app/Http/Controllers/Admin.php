@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataUser;
+use App\Models\Admin as ModelsAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -38,7 +38,7 @@ class Admin extends Controller
                 'password' => 'required|string|max:255',
             ]);
 
-            $admin = DataUser::where('username', $request->input('username'))->first();
+            $admin = ModelsAdmin::where('username', $request->input('username'))->first();
 
             if ($admin && Hash::check($request->input('password'), $admin->p4ssw0rd)) {
                 $request->session()->put([

@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url('/assets/favicon.png') }}" rel="icon">
+    <link href="{{ url('res/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <title>Login</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -19,7 +21,7 @@
             <h2 class="text-2xl font-bold text-center text-white md:text-black">Welcome Back...</h2>
             <p class="text-center text-white md:text-gray-600 mb-6">Silahkan Login</p>
 
-            <form action="/" method="POST">
+            <form action="{{route('auth.doUserLogin')}}" method="POST" enctype="multipart/form-data">
                 <div class="space-y-4">
                     <div>
                         <label for="username"
