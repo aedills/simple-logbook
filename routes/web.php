@@ -27,6 +27,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [Admin::class, 'login'])->name('login');
     Route::post('doLogin', [Admin::class, 'doLogin'])->name('doLogin');
     Route::get('logout', [Admin::class, 'logout'])->name('logout');
+    Route::get('changePass', [Admin::class, 'changePass'])->name('changePass');
 
     // User Auth
     Route::get('userLogin', [Login::class, 'index'])->name('userLogin');
@@ -45,11 +46,8 @@ Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function (
         Route::get('/pending_aktifitas', [AktifitasPending::class, 'index'])->name('pending');
         Route::post('/update', [AktifitasPending::class, 'updateStatus'])->name('update'); // Pastikan ada {uuid}
     });
-    
-    
 
-    
-
+    // Data user
     Route::prefix('datauser')->name('datauser.')->group(function () {
         // Staf
         Route::prefix('staf')->name('staf.')->group(function () {
@@ -83,7 +81,7 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
     Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
     Route::post('/doChangePass', [Changepass::class, 'doChangePass'])->name('doChangePass');
 
-
+    // Aktifitas / Kegiatan
     Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {
         Route::prefix('upload')->name('upload.')->group(function () {
             Route::get('/', [Upload::class, 'index'])->name('index');

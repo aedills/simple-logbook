@@ -56,7 +56,6 @@ class Upload extends Controller
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
-            dd($err);
             return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         }
     }

@@ -25,6 +25,9 @@ class Admin extends Controller
 
     public function login(Request $request)
     {
+        if (session('uuid')) {
+            return redirect()->route('admin.dashboard')->with('error', 'Anda telah login')->withInput();
+        }
         return view('admin/login', [
             'title' => 'Admin | Login'
         ]);
@@ -44,7 +47,8 @@ class Admin extends Controller
                 if (Hash::check($request->input('password'), $admin->p4ssw0rd)) {
 
                     $request->session()->put([
-                        'uuid'   => $admin->uuid,
+                        'id' => $admin->id,
+                        'uuid' => $admin->uuid,
                         'nama' => $admin->nama,
                         'username' => $admin->username,
                         'role' => $admin->role,
@@ -62,6 +66,17 @@ class Admin extends Controller
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika melakukan login')->withInput();
+        }
+    }
+
+    public function changePass(Request $request)
+    {
+        if (session('uuid')) {
+            return view('admin/changePass', [
+                'title' => 'Ganti Password'
+            ]);
+        } else {
+            return redirect()->route('auth.login')->with('error', 'Anda harus login terlebih dahulu!')->withInput();
         }
     }
 
