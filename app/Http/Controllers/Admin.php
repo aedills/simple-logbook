@@ -40,16 +40,23 @@ class Admin extends Controller
 
             $admin = ModelsAdmin::where('username', $request->input('username'))->first();
 
-            if ($admin && Hash::check($request->input('password'), $admin->p4ssw0rd)) {
-                $request->session()->put([
-                    'uuid'   => $admin->uuid,
-                    'nama' => $admin->nama,
-                    'username' => $admin->username,
-                    'role' => $admin->role,
-                    'foto' => $admin->foto,
-                ]);
+            if ($admin) {
+                if (Hash::check($request->input('password'), $admin->p4ssw0rd)) {
 
-                return redirect()->route('admin.dashboard');
+                    $request->session()->put([
+                        'uuid'   => $admin->uuid,
+                        'nama' => $admin->nama,
+                        'username' => $admin->username,
+                        'role' => $admin->role,
+                        'foto' => $admin->foto,
+                    ]);
+
+                    return redirect()->route('admin.dashboard');
+                } else {
+                    return back()->with('error', 'Password yang Anda masukkan salah. Silahkan coba lagi.')->withInput();
+                }
+            } else {
+                return back()->with('error', 'User tidak ditemukan. Silahkan hubungi admin.')->withInput();
             }
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
