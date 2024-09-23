@@ -13,4 +13,9 @@ class DataUser extends Model
     protected $fillable = [
         'uuid', 'nama', 'username', 'p4ssw0rd', 'foto', 'tgl_mulai', 'tgl_selesai', 'role'
     ];
+
+    public function aktifitas()
+    {
+        return $this->hasMany(AktifitasModel::class, 'uuid_user', 'uuid');
+    }
 }

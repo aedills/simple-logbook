@@ -188,7 +188,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong>Apakah Anda yakin ingin menghapus <span>Cuki</span> ?</strong></h5>
+                    <h5 class="modal-title"><strong>Apakah Anda yakin ingin menghapus <span></span> ?</strong></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="deleteForm" action="{{route('admin.datauser.magang.delete')}}" method="post" enctype="multipart/form-data">

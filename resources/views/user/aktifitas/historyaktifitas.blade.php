@@ -16,9 +16,9 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-                @if ($history->isEmpty())
+                @if (empty($history->aktifitas))
                     <div class="d-flex justify-content-center align-items-center">
-                        <h3 class="text-center">Kamu belum upload aktifitias</h3>
+                        <h3 class="text-center">Kamu belum upload aktifitias / Aktifitas kamu belum diverifikasi</h3>
                     </div>
                 @else
                 <div class="card">
@@ -40,7 +40,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($history as $list)
+                                    @foreach($history->aktifitas as $list)
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($list->tanggal)->format('d-m-Y') }}</td>
                                         <td>{{$list->judul}}</td>

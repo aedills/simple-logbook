@@ -129,13 +129,13 @@
                         <div class="row mb-3">
                             <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" name="nama" id="nama" class="form-control" required placeholder="Masukkan Nama Staf" maxlength="100" value="">
+                                <input type="text" name="nama" id="nama" class="form-control" required placeholder="Masukkan Nama Staf" maxlength="100">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="username" class="col-sm-2 col-form-label">Username</label>
                             <div class="col-sm-10">
-                                <input type="text" name="username" id="username" class="form-control" required placeholder="Masukkan username" maxlength="25" value="">
+                                <input type="text" name="username" id="username" class="form-control" required placeholder="Masukkan username" maxlength="25">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -168,7 +168,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><strong>Apakah Anda yakin ingin menghapus <span>Cuki</span> ?</strong></h5>
+                    <h5 class="modal-title"><strong>Apakah Anda yakin ingin menghapus <span></span> ?</strong></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="deleteForm" action="{{route('admin.datauser.staf.delete')}}" method="post" enctype="multipart/form-data">
@@ -183,7 +183,7 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
+    <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

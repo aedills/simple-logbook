@@ -21,7 +21,6 @@ class Pkl extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
         try {
             $request->validate([
                 'nama' => 'required|string|max:100',

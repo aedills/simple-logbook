@@ -23,7 +23,7 @@ class Upload extends Controller
             $request->validate([
                 'judul' => 'required|string|max:255',
                 'deskripsi' => 'required|string',
-                'gambar' => 'required|image|max:5120',
+                'gambar' => 'required|image|max:10240',
                 'tanggal' => 'required'
             ]);
 
