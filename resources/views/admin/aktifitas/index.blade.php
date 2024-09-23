@@ -24,6 +24,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Tanggal</th>
+                                <th>Judul</th>
                                 <th>Keterangan</th>
                                 <th>Foto</th>
                                 <th>Status</th>
@@ -34,20 +35,22 @@
                                 <tr>
                                     <td>{{ $item->uuid_user }}</td>
                                     <td>{{ $item->tanggal }}</td>
-                                    <td>{{ $item->keterangan }}</td>
-                                    <td>@if ($item->foto)
-                                        <a href="{{ asset('assets/images/' . $item->foto) }}" target="_blank">
-                                            <button class="btn btn-outline-primary">Lihat Foto
-                                            </button>    
-                                        </a>
-                                    @else
-                                        Tidak ada foto
-                                    @endif
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ substr($item->keterangan, 0, 60) }}</td>
+                                    <td>
+                                        @if ($item->foto)
+                                            <button type="button" class="btn btn-outline-success btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#imageModal"
+                                                data-bs-foto="{{ $item->foto }}">Lihat Foto
+                                            </button>
+                                        @else
+                                            Tidak ada foto
+                                        @endif
                                     </td>
                                     <td class="green">
                                         <span class="badge {{ $item->is_verified ? 'bg-success' : 'bg-warning' }}">
                                             <i class="bi bi-check-circle me-1">
-                                                
+
                                             </i>
                                             {{ $item->is_verified ? 'Verified' : 'Pending' }}
                                         </span>
@@ -56,8 +59,42 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             </div>
+
+            <div class="modal fade" id="imageModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><strong>Foto Kegiatan</strong></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="" id="image-preview" style="width: 40%;">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function() {
+                    $('#imageModal').on('show.bs.modal', function(event) {
+                        var button = $(event.relatedTarget);
+                        var filename = button.data('bs-foto');
+                        var path = "{{ url('assets/images/') }}/"
+
+                        var modal = $(this);
+                        modal.find('#image-preview').attr('src', path + filename);
+                    });
+                });
+            </script>
         </section>
 
     </main><!-- End #main -->

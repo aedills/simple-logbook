@@ -19,10 +19,11 @@ class AktifitasPending extends Controller
     ]);
 }
 
-public function updateStatus($uuid)
+public function updateStatus(Request $request)
 {
  // Debugging untuk melihat UUID yang diterima
-    $aktifitas = AktifitasModel::where('uuid', $uuid)->first();
+    
+    $aktifitas = AktifitasModel::where('id', $request->id)->first();
 
     if ($aktifitas) {
         $aktifitas->is_verified = 1;
