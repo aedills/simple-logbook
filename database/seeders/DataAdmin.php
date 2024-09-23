@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class DataAdmin extends Seeder
@@ -14,7 +15,8 @@ class DataAdmin extends Seeder
     public function run(): void
     {
         Admin::create([
-            'name' => 'Super Admin',
+            'uuid' => Str::uuid(),
+            'nama' => 'Super Admin',
             'username' => 'admin',
             'p4ssw0rd' => '$2y$12$vfTNvOeY8nJIDkSJWdNAre8.mhqmoA1/Ttuo5ireTvPjAxnFwRCEK',
             'is_change_pass' => 0,
