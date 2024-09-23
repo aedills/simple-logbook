@@ -100,20 +100,26 @@
     @if (session()->has('success'))
     <script>
         Swal.fire({
-            title: "Success",
-            text: "{{session()->get('success')}}",
-            icon: "success"
-        });
+            toast: true,
+            position: "top-end",
+            icon: "success",
+            title: "{{ session()->get('success') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
     </script>
     @endif
 
     @if (session()->has('error'))
     <script>
         Swal.fire({
-            title: "Error",
-            text: "{{session()->get('error')}}",
-            icon: "error"
-        });
+            toast: true,
+            position: "top-end",
+            icon: "error",
+            title: "{{ session()->get('error') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
     </script>
     @endif
 
