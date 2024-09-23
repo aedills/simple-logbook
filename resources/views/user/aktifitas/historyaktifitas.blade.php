@@ -16,15 +16,19 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
+                @if ($history->isEmpty())
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h3 class="text-center">Kamu belum upload aktifitias</h3>
+                    </div>
+                @else
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">History Aktifitas</h5>
-                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#addModal"><i class="bi bi-plus-lg me-1"></i> Add</button>
                         </div>
 
                         <!-- Table with stripped rows -->
+                        
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -52,6 +56,7 @@
                             </table>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -77,54 +82,6 @@
         </div>
     </div>
 
-    <!-- Create Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><strong>Tambah Staf</strong></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nama" id="nama" class="form-control" required
-                                placeholder="Masukkan Nama Staf" maxlength="100">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="username" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="username" id="username" class="form-control" required
-                                placeholder="Masukkan username" maxlength="25">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Role</label>
-                        <div class="col-sm-10">
-                            <select class="form-select">
-                                <option value="staf">Staf/Dosen</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="file" id="formFile">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary">Tambah</button>
-                </div>
-            </div>
-        </div>
-    </div><!-- End Basic Modal-->
-
 
 
 </main>
@@ -134,7 +91,7 @@
         $('#imageModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var filename = button.data('bs-foto');
-            var path = "{{url('assets/aktifitasimage/')}}/";
+            var path = "{{url('assets/aktifitasimages/')}}/";
 
             console.log("Image URL:", path + filename); // Debugging line
 
