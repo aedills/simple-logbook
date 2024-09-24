@@ -18,9 +18,12 @@ class isAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->has('uuid')) {
-            if ($request->session()->has('role') == 'admin' || $request->session()->has('role') == 'staf') {
+            if ($request->session()->get('role') == 'admin' || $request->session()->get('role') == 'staf') {
                 return $next($request);
-            } else {
+            }elseif (session('role') == 'magang' || session('role') == 'pkl'){
+                return back()->with('error', 'Anda tidak memiliki akses ke halaman tersebut.')->withInput();
+            }
+             else {
                 return redirect()->route('auth.login')->with('error', 'Anda harus login sebagai Admin!');
             }
         } else {

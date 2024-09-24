@@ -11,7 +11,7 @@ class AktifitasPending extends Controller
     public function index(Request $request)
 {
     $aktifitas = AktifitasModel::where('is_verified', 0)->join('data_user', 'data_user.uuid', '=', 'data_aktifitas.uuid_user')
-    ->orderBy('data_aktifitas.created_at', 'desc')
+    ->orderBy('data_aktifitas.tanggal', 'asc')
     ->select(
         'data_aktifitas.id',
         'data_aktifitas.uuid',

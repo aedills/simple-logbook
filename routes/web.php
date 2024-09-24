@@ -27,19 +27,29 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [Admin::class, 'login'])->name('login');
     Route::post('doLogin', [Admin::class, 'doLogin'])->name('doLogin');
     Route::get('logout', [Admin::class, 'logout'])->name('logout');
+
+    // Admin First Login
     Route::get('changePass', [Admin::class, 'changePass'])->name('changePass');
     Route::post('doChangePass', [Admin::class, 'doChangePass'])->name('doChangePass');
+
 
     // User Auth
     Route::get('userLogin', [Login::class, 'index'])->name('userLogin');
     Route::post('doUserLogin', [Login::class, 'doLogin'])->name('doUserLogin');
     Route::get('userLogout', [Login::class, 'logout'])->name('userLogout');
+
+    // User Ganti password
+    Route::post('updatePassword', [Login::class, 'updatePassword'])->name('updatePassword');
 });
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function () {
     Route::get('/', [Admin::class, 'index'])->name('dashboard');
     Route::get('/profile', [Admin::class, 'profile'])->name('profile');
+
+    // Profile & Pass
+    Route::post('doUpdateProfile', [Admin::class, 'doUpdateProfile'])->name('doUpdateProfile');
+    Route::post('doUpdatePassword', [Admin::class, 'doUpdatePassword'])->name('doUpdatePassword');
 
     // aktifitas
     Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
@@ -79,8 +89,13 @@ Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function (
 // User Routes
 Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
     Route::get('/', [User::class, 'index'])->name('dashboarduser');
+    Route::get('/profile', [User::class, 'profile'])->name('profile');
+    Route::post('/updateProfile', [User::class, 'updateProfile'])->name('updateProfile');
+
+    // Password
     Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
     Route::post('/doChangePass', [Changepass::class, 'doChangePass'])->name('doChangePass');
+
 
     // Aktifitas / Kegiatan
     Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {

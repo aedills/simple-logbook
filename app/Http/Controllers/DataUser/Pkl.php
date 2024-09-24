@@ -110,14 +110,14 @@ class Pkl extends Controller
             $result = $user->save();
 
             if ($result) {
-                return back()->with('success', 'Berhasil menambahkan data');
+                return back()->with('success', 'Berhasil memperbarui data');
             } else {
-                return back()->with('error', 'Gagal menambahkan data')->withInput();
+                return back()->with('error', 'Gagal memperbarui data')->withInput();
             }
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {
-            return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
+            return back()->with('error', 'Terdapat kesalahan ketika memperbarui data')->withInput();
         }
     }
 

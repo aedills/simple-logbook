@@ -1,4 +1,4 @@
-@extends('admin/template/layout')
+@extends('user/template/layout')
 
 @section('content')
 <main id="main" class="main">
@@ -67,14 +67,33 @@
                                     <div class="col-lg-9 col-md-8">{{ucfirst($profile->role)}}</div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Tanggal Mulai</div>
+                                    <div class="col-lg-9 col-md-8">{{ \Carbon\Carbon::parse($profile->tgl_mulai)->format('d M Y') }}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Tanggal Selesai</div>
+                                    <div class="col-lg-9 col-md-8">{{ \Carbon\Carbon::parse($profile->tgl_selesai)->format('d M Y') }}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Jumlah Aktifitas</div>
+                                    @if($pending > 0)
+                                    <div class="col-lg-9 col-md-8">{{ $aktifitas }} ({{$pending}} pending)</div>
+                                    @else
+                                    <div class="col-lg-9 col-md-8">{{ $aktifitas }}</div>
+                                    @endif
+                                </div>
+
                             </div>
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form action="{{ route('admin.doUpdateProfile') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('user.updateProfile') }}" method="post" enctype="multipart/form-data">
                                     @csrf
-
+                                    
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Foto Profile</label>
                                         <div class="col-md-8 col-lg-9">
@@ -128,7 +147,7 @@
                             </div>
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
-                                <form action="{{ route('admin.doUpdatePassword') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('auth.updatePassword') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password Sekarang</label>

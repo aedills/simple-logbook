@@ -57,6 +57,40 @@ class Login extends Controller
         }
     }
 
+    public function updatePassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'currentPassword' => 'required|string|max:255',
+                'newPassword' => 'required|string|max:255',
+                'newPasswordConfirm' => 'required|string|max:255',
+            ]);
+
+            $user = DataUser::find(session('id'));
+
+            if (Hash::check($request->currentPassword, $user->p4ssw0rd)) {
+                if ($request->newPassword === $request->newPasswordConfirm) {
+                    $user->p4ssw0rd = Hash::make($request->newPasswordConfirm);
+                    $status = $user->save();
+
+                    if ($status) {
+                        return back()->with('success', 'Berhasil memperbarui password');
+                    } else {
+                        return back()->with('error', 'Terdapat kesalahan ketika memperbarui password')->withInput();
+                    }
+                } else {
+                    return back()->with('error', 'Password baru tidak sesuai')->withInput();
+                }
+            } else {
+                return back()->with('error', 'Password yang Anda masukkan salah! Silahkan coba lagi.')->withInput();
+            }
+        } catch (ValidationException $e) {
+            return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (\Exception $err) {
+            return back()->with('error', 'Terdapat kesalahan ketika melakukan update password')->withInput();
+        }
+    }
+
     public function logout(Request $request)
     {
         $request->session()->flush();

@@ -29,7 +29,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profile') }}">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('user.profile') }}">
                             <i class="bi bi-person"></i>
                             <span>Profile</span>
                         </a>
@@ -40,7 +40,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.userLogout') }}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>

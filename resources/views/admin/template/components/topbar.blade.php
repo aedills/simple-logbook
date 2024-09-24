@@ -20,7 +20,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>{{ session('nama') }}</h6>
-                        <span>{{ session('nama') }} | {{ ucfirst(session('role')) }}</span>
+                        <span>{{ session('username') }} | {{ ucfirst(session('role')) }}</span>
                     </li>
 
                     <li>

@@ -16,9 +16,9 @@ class isUser
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->has('uuid')) {
-            if ($request->session()->has('role') == 'magang' || $request->session()->has('role') == 'pkl') {
+            if (session('role') == 'magang' || session('role') == 'pkl') {
                 return $next($request);
-            } elseif ($request->session()->has('role') == 'admin' || $request->session()->has('role') == 'staf') {
+            } elseif (session('role') == 'admin' || session('role') == 'staf') {
                 return redirect()->route('admin.dashboard')->with('error', 'Anda telah login sebagai admin!');
             } else {
                 return redirect()->route('auth.userLogin')->with('error', 'Anda harus login terlebih dahulu!');
