@@ -18,52 +18,63 @@
                 <h5 style="margin-left:20px">Semua Aktifitas Pending</h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table datatable">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Tanggal</th>
-                                <th>Judul</th>
-                                <th>Keterangan</th>
-                                <th>Foto</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($aktifitas as $item)
-                            <tr>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
-                                <td>{{ $item->judul }}</td>
-                                <td>{{ substr($item->keterangan, 0, 60) }}</td>
-                                <td>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        @if ($item->foto)
-                                        <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{ $item->foto }}">Lihat Foto</button>
-                                        @else
-                                        <span class="badge bg-warning text-dark">Tidak Ada Foto</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="green">
-                                    <span type="" class="badge {{ $item->is_verified ? 'bg-success' : 'bg-warning text-dark' }}">
-                                        <i class="bi bi-exclamation-triangle me-1"></i>
-                                        {{ $item->is_verified ? 'Verified' : 'Pending' }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#verifModal" data-bs-id="{{ $item->id }}" data-bs-judul="{{ $item->judul}}"> Verifikasi</button>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="5">Tidak ada aktifitas pending</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="card-body table-responsive">
+                    <form id="bulkUpdate" action="{{route('admin.aktifitas.updateBulk')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>?</th>
+                                    <th>Nama</th>
+                                    <th>Tanggal</th>
+                                    <th>Judul</th>
+                                    <th>Keterangan</th>
+                                    <th>Foto</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($aktifitas as $item)
+                                <tr>
+                                    <td><input class="inputCheck" type="checkbox" name="pendingItem[]" id="pendingItem{{$item->id}}" value="{{$item->id}}"></td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ substr($item->keterangan, 0, 60) }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            @if ($item->foto)
+                                            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{ $item->foto }}">Lihat Foto</button>
+                                            @else
+                                            <span class="badge bg-warning text-dark">Tidak Ada Foto</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="green">
+                                        <span type="" class="badge {{ $item->is_verified ? 'bg-success' : 'bg-warning text-dark' }}">
+                                            <i class="bi bi-exclamation-triangle me-1"></i>
+                                            {{ $item->is_verified ? 'Verified' : 'Pending' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#verifModal" data-bs-id="{{ $item->id }}" data-bs-judul="{{ $item->judul}}"> Verifikasi</button>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada aktifitas pending</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+
+                        <div>
+                            <button type="button" id="selectAll" class="btn btn-sm btn-outline-success">Pilih Semua</button>
+                            <button type="submit" class="btn btn-sm btn-outline-success" form="bulkUpdate"> Verifikasi</button>
+                        </div>
+                    </form>
+
 
                     <!-- Image Modal -->
                     <div class="modal fade" id="imageModal" tabindex="-1">
@@ -118,6 +129,14 @@
                     modal.find('#image-preview').attr('src', path + filename);
                 });
 
+                $('#selectAll').on('click', function() {
+                    var form = $('#bulkUpdate');
+                    var checkBox = form.find('input[type=checkbox]');
+                    var isChecked = checkBox.prop('checked');
+                    checkBox.prop('checked', !isChecked);
+                });
+
+
                 $('#verifModal').on('show.bs.modal', function(event) {
                     var button = $(event.relatedTarget);
                     var nama = button.data('bs-judul');
@@ -125,7 +144,6 @@
                     var modal = $(this);
                     modal.find('span').text(nama);
                     modal.find('#id').val(id);
-
                 });
             });
         </script>

@@ -105,7 +105,7 @@
 
 <script>
     function redirectDownload(){
-        const url = "http://127.0.0.1:8000/user/aktifitasuser/download-pdf/" + "{{session('uuid')}}"
+        const url = "{{url('')}}/user/aktifitasuser/download-pdf/" + "{{session('uuid')}}"
         window.location.href = url;
     }
 </script>

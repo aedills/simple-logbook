@@ -55,7 +55,8 @@ Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function (
     Route::prefix('aktifitas')->name('aktifitas.')->group(function () {
         Route::get('/', [Aktifitas::class, 'index'])->name('index');
         Route::get('/pending_aktifitas', [AktifitasPending::class, 'index'])->name('pending');
-        Route::post('/update', [AktifitasPending::class, 'updateStatus'])->name('update'); // Pastikan ada {uuid}
+        Route::post('/update', [AktifitasPending::class, 'updateStatus'])->name('update');
+        Route::post('/updateBulk', [AktifitasPending::class, 'updateBulkStatus'])->name('updateBulk');
     });
 
     // Data user
