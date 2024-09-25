@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AktifitasModel;
 use App\Models\DataUser;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DateTime;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -111,7 +112,38 @@ class User extends Controller
     {
         $dataUser = DataUser::find(session('id'));
         $dataAktifitas = AktifitasModel::where('uuid_user', $uuid)->get();
-        $pdf = PDF::loadView('pdf_template', compact('dataUser', 'dataAktifitas'));
+
+        $tglMulai = $dataUser->tgl_mulai;
+        $tglSelesai = $dataUser->tgl_selesai;
+
+        $listTanggal = $this->rangeTanggal($tglMulai, $tglSelesai);
+
+        $pdf = PDF::loadView('pdf_template', compact('dataUser', 'dataAktifitas', 'listTanggal'));
         return $pdf->download('document.pdf');
+    }
+
+    private function rangeTanggal($tanggalMulai, $tanggalSelesai)
+    {
+        $tglMulai = new DateTime($tanggalMulai);
+        $tglSelesai = new DateTime($tanggalSelesai);
+
+        $listTanggal = [];
+        $listMinggu = 1;
+
+        while ($tglMulai <= $tglSelesai) {
+            $tanggalMinggu = [];
+
+            for ($i = 0; $i < 7; $i++) {
+                if ($tglMulai > $tglSelesai) break;
+                $tanggalMinggu[] = $tglMulai->format('d-m-Y');
+                $tglMulai->modify('+1 day');
+            }
+
+            $listTanggal["Minggu ke $listMinggu"] = $tanggalMinggu;
+
+            $listMinggu++;
+        }
+
+        return $listTanggal;
     }
 }
