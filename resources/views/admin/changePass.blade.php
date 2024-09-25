@@ -60,6 +60,20 @@
 
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session()->has('success'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "success",
+            title: "{{ session()->get('success') }}",
+            showConfirmButton: false,
+            timer: 2500
+        })
+    </script>
+    @endif
+
     @if (session()->has('error'))
     <script>
         Swal.fire({
