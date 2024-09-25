@@ -61,7 +61,7 @@ class Admin extends Controller
                     ]);
 
                     if (!$admin->is_change_pass) {
-                        return redirect()->route('auth.changePass');
+                        return redirect()->route('auth.changePass')->with('success', 'Berhasil Login. Harap ubah password Anda terlebih dahulu');
                     }
 
                     return redirect()->route('admin.dashboard');
