@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AktifitasModel;
 use App\Models\DataUser;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -103,5 +104,14 @@ class User extends Controller
         return view('user/changepass', [
             'title' => 'Ganti Password',
         ]);
+    }
+
+
+    public function downloadAktifitasPDF($uuid)
+    {
+        $dataUser = DataUser::find(session('id'));
+        $dataAktifitas = AktifitasModel::where('uuid_user', $uuid)->get();
+        $pdf = PDF::loadView('pdf_template', compact('dataUser', 'dataAktifitas'));
+        return $pdf->download('document.pdf');
     }
 }

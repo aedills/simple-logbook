@@ -105,5 +105,8 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
         });
 
         Route::get('/history', [History::class, 'index'])->name('history');
+
+
+        Route::get('/download-pdf/{uuid}', [User::class, 'downloadAktifitasPDF']);
     });
 });

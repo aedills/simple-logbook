@@ -57,7 +57,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="tanggal">Tanggal</label>
                                 <div class="col-sm-10">
-                                    <input required name="tanggal" type="date" class="form-control" id="tanggal" min="{{session('tgl_mulai')}}" max="{{session('tgl_selesai')}}" value="{{ now()->format('Y-m-d') }}">
+                                    <input required name="tanggal" type="date" class="form-control" id="tanggal" min="{{session('tgl_mulai')}}" max="{{ now()->format('Y-m-d') < session('tgl_selesai') ? now()->format('Y-m-d') : session('tgl_selesai') }}" value="{{ now()->format('Y-m-d') }}"">
                                 </div>
                             </div>
                         </form>
