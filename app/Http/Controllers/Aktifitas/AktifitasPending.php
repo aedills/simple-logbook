@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Aktifitas;
 use App\Http\Controllers\Controller;
 use App\Models\AktifitasModel;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class AktifitasPending extends Controller
 {
@@ -47,6 +48,25 @@ class AktifitasPending extends Controller
 
     public function updateBulkStatus(Request $request)
     {
-        dd($request);
+        try {
+            $request->validate([
+                'pendingItem' => 'array|required'
+            ]);
+
+            foreach ($request->pendingItem as $id) {
+                $item = AktifitasModel::find($id);
+
+                $item->is_verified = 1;
+                $item->verified_by_uuid = session('uuid');
+
+                $item->save();
+            }
+
+            return back()->with('success', 'Berhasil melakukan verifikasi');
+        } catch (ValidationException) {
+            return back()->with('error', 'Tidak ada data yang dipilih')->withInput();
+        } catch (\Exception) {
+            return back()->with('error', 'Terdapat kesalahan ketika mengolah data')->withInput();
+        }
     }
 }
