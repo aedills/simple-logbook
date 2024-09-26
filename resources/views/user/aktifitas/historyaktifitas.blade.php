@@ -31,7 +31,7 @@
                                     @endif
                                 </h5>
                             </div>
-                            <button type="button" class="btn btn-outline-danger" onclick="redirectDownload()">
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="redirectDownload()">
                                 <i class="bi bi-filetype-pdf"></i> PDF
                             </button>
                         </div>

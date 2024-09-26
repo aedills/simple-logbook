@@ -132,14 +132,19 @@ class User extends Controller
     public function downloadAktifitasPDF($uuid)
     {
         $dataUser = DataUser::find(session('id'));
-        $dataAktifitas = AktifitasModel::where('uuid_user', $uuid)->get();
+        $dataAktifitas = AktifitasModel::where('uuid_user', $uuid)->orderBy('tanggal')->get();
 
         $tglMulai = $dataUser->tgl_mulai;
         $tglSelesai = $dataUser->tgl_selesai;
 
-        $listTanggal = $this->rangeTanggal($tglMulai, $tglSelesai);
+        $listTanggal = $this->rangeTanggal($tglMulai, '2024-10-1');
 
         $pdf = PDF::loadView('pdf_template', compact('dataUser', 'dataAktifitas', 'listTanggal'));
+        // return view('pdf_template', [
+        //     'dataUser' => $dataUser,
+        //     'dataAktifitas' => $dataAktifitas,
+        //     'listTanggal' => $listTanggal,
+        // ]);
         return $pdf->download('document.pdf');
     }
 
