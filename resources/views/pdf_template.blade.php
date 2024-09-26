@@ -36,23 +36,36 @@
                     @endphp
 
                     @if ($activities->isNotEmpty())
-                        @foreach ($activities as $index => $activity)    
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                @if ($index == 0)
+                        @if ($activities->count() == 1)
+                            @foreach ($activities as $index => $activity)
+                                <tr style="border-bottom: 1px solid #ddd;">
                                     <td style="padding: 12px;" rowspan="{{ $activities->count() }}">{{ $date }}</td>
-                                @endif
-                                <td style="padding: 12px;">{{ $activity->judul }}</td>
-                                <td style="padding: 12px;">{{ $activity->keterangan }}</td>
-                                <td style="padding: 12px;">
-                                    <a href="{{ url('assets/aktifitasimages/' . $activity->foto) }}">Foto</a>
-                                </td>
+                                    <td style="padding: 12px;">{{ $activity->judul }}</td>
+                                    <td style="padding: 12px;">{{ $activity->keterangan }}</td>
+                                    <td style="padding: 12px;">
+                                        <a href="{{ url('assets/aktifitasimages/' . $activity->foto) }}">Foto</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 12px;" rowspan="{{ $activities->count()+1 }}">{{ $date }}</td>
                             </tr>
-                        @endforeach
+                            @foreach ($activities as $index => $activity)
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 12px;">{{ $activity->judul }}</td>
+                                    <td style="padding: 12px;">{{ $activity->keterangan }}</td>
+                                    <td style="padding: 12px;">
+                                        <a href="{{ url('assets/aktifitasimages/' . $activity->foto) }}">Foto</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     @else
-                        <tr style="border-bottom: 1px solid #ddd;">
-                            <td style="padding: 12px;">{{ $date }}</td>
-                            <td style="padding: 12px;" colspan="3">Tidak ada kegiatan</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 12px;">{{ $date }}</td>
+                        <td style="padding: 12px;" colspan="3">Tidak ada kegiatan</td>
+                    </tr>
                     @endif
                 @endforeach
             </tbody>

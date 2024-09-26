@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">History Aktifitas</h5>
-                            <button type="button" class="btn btn-outline-danger" onclick="redirectDownload()">
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="redirectDownload()">
                                     <i class="bi bi-filetype-pdf"></i> PDF
                             </button>
                         </div>
@@ -105,7 +105,7 @@
 
 <script>
     function redirectDownload(){
-        const url = "http://127.0.0.1:8000/user/aktifitasuser/download-pdf/" + "{{session('uuid')}}"
+        const url = "{{url('')}}/user/aktifitasuser/download-pdf/" + "{{session('uuid')}}"
         window.location.href = url;
     }
 </script>
