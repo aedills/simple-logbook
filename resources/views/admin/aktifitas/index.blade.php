@@ -42,7 +42,7 @@
                                     @if ($item->foto)
                                     <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{ $item->foto }}">Lihat Foto</button>
                                     @else
-                                    Tidak ada foto
+                                    <span class="badge bg-warning"><i class="bi bi-x-circle-fill me-1"></i> Tidak ada foto</span>
                                     @endif
                                 </div>
                             </td>
