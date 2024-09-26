@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item active">Pending</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -33,7 +33,6 @@
                             </div>
                         </div>
 
-                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -59,7 +58,7 @@
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center gap-1">
                                                 <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="{{$list->id}}" data-bs-judul="{{$list->judul}}" data-bs-keterangan="{{$list->keterangan}}" data-bs-tanggal="{{$list->tanggal}}" data-bs-foto="{{$list->foto}}"><i class="bi bi-pencil"></i> Edit</button>
-                                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-id="{{$list->id}}" data-bs-judul="{{$list->judul}}"><i class="bi bi-trash"></i> Batal Ajukan</button>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{$list->id}}" data-bs-uuid="{{$list->uuid}}" data-bs-judul="{{$list->judul}}"><i class="bi bi-trash"></i> Batal Ajukan</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -93,7 +92,6 @@
         </div>
     </div>
 
-    <!-- Edit Aktifitas Pending -->
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -102,8 +100,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm" enctype="multipart/form-data" action="{{ route('user.aktifitasuser.upload.update') }}" method="POST">
+                    <form id="editForm" enctype="multipart/form-data" action="{{ route('user.aktifitasuser.update') }}" method="POST">
                         @csrf
+                        <input type="text" name="id" id="id" value="" hidden>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="judul">Judul Kegiatan</label>
                             <div class="col-sm-10">
@@ -119,7 +118,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="gambar">Gambar</label>
                             <div class="col-sm-10">
-                                <input required name="gambar" class="form-control" type="file" id="gambar" accept="image/*" onchange="previewImage(event)">
+                                <input name="gambar" class="form-control" type="file" id="gambar" accept="image/*" onchange="previewImage(event)">
                             </div>
                         </div>
                         <div class="row mb-3" id="imgPreviewContainer">
@@ -139,6 +138,26 @@
                 <div class="modal-footer">
                     <button type="submit" form="editForm" class="btn btn-sm btn-outline-primary">Simpan</button>
                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong>Apakah Anda yakin ingin menghapus aktifitas <span></span> ?</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="deleteForm" action="{{ route('user.aktifitasuser.delete') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" name="id" id="id" value="" hidden>
+                    <input type="text" name="uuid" id="uuid" value="" hidden>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" form="deleteForm" class="btn btn-sm btn-outline-danger">Hapus</button>
                 </div>
             </div>
         </div>
@@ -176,6 +195,20 @@
             modal.find('textarea[name=deskripsi]').text(keterangan);
             modal.find('input[name=tanggal]').val(tanggal);
             modal.find('#imgPreview').attr('src', path + filename);
+        });
+
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+
+            var id = button.data('bs-id');
+            var uuid = button.data('bs-uuid');
+            var judul = button.data('bs-judul');
+
+            var modal = $(this);
+
+            modal.find('input[name=id]').val(id);
+            modal.find('input[name=uuid]').val(uuid);
+            modal.find('span').text(judul);
         });
     });
 

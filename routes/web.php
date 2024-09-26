@@ -103,11 +103,12 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
         Route::prefix('upload')->name('upload.')->group(function () {
             Route::get('/', [Upload::class, 'index'])->name('index');
             Route::post('/store', [Upload::class, 'store'])->name('store');
-            Route::post('/update', [Upload::class, 'update'])->name('update');
         });
 
         Route::get('/history', [AktifitasCC::class, 'list'])->name('history');
         Route::get('/pending', [AktifitasCC::class, 'pending'])->name('pending');
+        Route::post('/update', [AktifitasCC::class, 'update'])->name('update');
+        Route::post('/delete', [AktifitasCC::class, 'delete'])->name('delete');
 
 
         Route::get('/download-pdf/{uuid}', [User::class, 'downloadAktifitasPDF']);
