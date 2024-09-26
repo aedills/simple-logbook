@@ -13,6 +13,9 @@ class DataUser extends Model
     protected $fillable = [
         'uuid', 'nama', 'username', 'p4ssw0rd', 'foto', 'tgl_mulai', 'tgl_selesai', 'role'
     ];
+    protected $hidden  = [
+        'p4ssw0rd'
+    ];
 
     public function aktifitas()
     {

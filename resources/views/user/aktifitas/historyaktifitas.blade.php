@@ -17,20 +17,26 @@
         <div class="row">
             <div class="col-lg-12">
                 @if (empty($history->aktifitas))
-                    <div class="d-flex justify-content-center align-items-center">
-                        <h3 class="text-center">Kamu belum upload aktifitias / Aktifitas kamu belum diverifikasi</h3>
-                    </div>
+                <div class="text-center">
+                    <h5 class="card-title text-center">Kamu belum upload aktifitias / Aktifitas kamu belum diverifikasi</h5>
+                </div>
                 @else
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">History Aktifitas</h5>
+                            <div>
+                                <h5 class="card-title">History Aktifitas
+                                    @if($total > 0)
+                                    <span>({{$total}} total aktifitas)</span>
+                                    @endif
+                                </h5>
+                            </div>
                             <button type="button" class="btn btn-outline-danger" onclick="redirectDownload()">
-                                    <i class="bi bi-filetype-pdf"></i> PDF
+                                <i class="bi bi-filetype-pdf"></i> PDF
                             </button>
                         </div>
 
-                        <!-- Table with stripped rows -->        
+                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -39,12 +45,13 @@
                                         <th>Judul</th>
                                         <th>Deskripsi</th>
                                         <th>Foto</th>
+                                        <th>Verified By</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($history->aktifitas as $list)
                                     <tr>
-                                        <td>{{ \Carbon\Carbon::parse($list->tanggal)->format('d-m-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($list->tanggal)->format('d-M-Y') }}</td>
                                         <td>{{$list->judul}}</td>
                                         <td>{{$list->keterangan}}</td>
                                         <td>
@@ -52,6 +59,7 @@
                                                 <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{$list->foto}}"><i class="bi bi-eye me-1"></i> Lihat</button>
                                             </div>
                                         </td>
+                                        <td style="color: green;"><i class="bi bi-check-circle-fill"></i> {{ $list->verif_by->nama }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -64,7 +72,6 @@
         </div>
     </section>
 
-    {{-- Image Modal --}}
     <div class="modal fade" id="imageModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -74,7 +81,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center align-items-center">
-                        <img src="" id="image-preview" style="width: 40%;">
+                        <img src="" id="image-preview" style="width: 85%;">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -95,16 +102,14 @@
             var filename = button.data('bs-foto');
             var path = "{{url('assets/aktifitasimages/')}}/";
 
-            console.log("Image URL:", path + filename); // Debugging line
-
             var modal = $(this);
             modal.find('#image-preview').attr('src', path + filename);
         });
-});
+    });
 </script>
 
 <script>
-    function redirectDownload(){
+    function redirectDownload() {
         const url = "{{url('')}}/user/aktifitasuser/download-pdf/" + "{{session('uuid')}}"
         window.location.href = url;
     }

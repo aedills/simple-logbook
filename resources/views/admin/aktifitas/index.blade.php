@@ -27,13 +27,13 @@
                             <th>Kegiatan</th>
                             <th>Keterangan</th>
                             <th>Foto</th>
-                            <th>Status</th>
+                            <th>Verified By</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($aktifitas as $item)
                         <tr>
-                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->upload_by->nama }}</td>
                             <td>{{ $item->tanggal }}</td>
                             <td>{{ $item->judul }}</td>
                             <td>{{ substr($item->keterangan, 0, 60) }}</td>
@@ -46,13 +46,7 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="green">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <span class="badge {{ $item->is_verified ? 'bg-success' : 'bg-warning' }}">
-                                        <i class="bi bi-check-circle me-1"></i>{{ $item->is_verified ? 'Verified' : 'Pending' }}
-                                    </span>
-                                </div>
-                            </td>
+                            <td style="color: green;"><i class="bi bi-check-circle-fill"></i> {{ $item->verif_by->nama }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -70,7 +64,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="" id="image-preview" style="width: 40%;">
+                            <img src="" id="image-preview" style="width: 85%;">
                         </div>
                     </div>
                     <div class="modal-footer">

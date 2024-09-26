@@ -7,7 +7,7 @@ use App\Http\Controllers\DataUser\Magang;
 use App\Http\Controllers\DataUser\Pkl;
 use App\Http\Controllers\DataUser\Staf;
 use App\Http\Controllers\User;
-use App\Http\Controllers\User\AktifitasUser\History;
+use App\Http\Controllers\User\AktifitasUser\AktifitasCC;
 use App\Http\Controllers\User\AktifitasUser\Upload;
 use App\Http\Controllers\User\Changepass;
 use App\Http\Controllers\User\Login;
@@ -103,9 +103,11 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
         Route::prefix('upload')->name('upload.')->group(function () {
             Route::get('/', [Upload::class, 'index'])->name('index');
             Route::post('/store', [Upload::class, 'store'])->name('store');
+            Route::post('/update', [Upload::class, 'update'])->name('update');
         });
 
-        Route::get('/history', [History::class, 'index'])->name('history');
+        Route::get('/history', [AktifitasCC::class, 'list'])->name('history');
+        Route::get('/pending', [AktifitasCC::class, 'pending'])->name('pending');
 
 
         Route::get('/download-pdf/{uuid}', [User::class, 'downloadAktifitasPDF']);

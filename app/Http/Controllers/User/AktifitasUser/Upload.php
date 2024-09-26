@@ -52,7 +52,7 @@ class Upload extends Controller
                 return back()->with('error', 'Gagal menambahkan data')->withInput();
             }
 
-            return back()->with('success', 'Berhasil menambahkan kegiatan!');
+            return redirect()->route('user.aktifitasuser.pending')->with('success', 'Berhasil menambahkan kegiatan!');
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
         } catch (\Exception $err) {

@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <img src="" id="image-preview" style="width: 40%;">
+                                            <img src="" id="image-preview" style="width: 85%;">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

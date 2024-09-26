@@ -10,8 +10,18 @@ class AktifitasModel extends Model
     use HasFactory;
 
     protected $table = 'data_aktifitas';
-    protected $fillable = ['uuid_user', 'tanggal', 'model', 'keterangan', 'foto', 'is_verified'];
-
     protected $primaryKey = 'id';
-    protected $keyType = 'string';
+    protected $fillable = [
+        'uuid_user', 'tanggal', 'model', 'keterangan', 'foto', 'is_verified', 'verified_by_uuid'
+    ];
+
+    public function verif_by()
+    {
+        return $this->HasOne(Admin::class, 'uuid', 'verified_by_uuid');
+    }
+
+    public function upload_by()
+    {
+        return $this->HasOne(DataUser::class, 'uuid', 'uuid_user');
+    }
 }

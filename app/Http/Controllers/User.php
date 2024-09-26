@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AktifitasModel;
 use App\Models\DataUser;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -12,24 +13,44 @@ use Illuminate\Validation\ValidationException;
 
 class User extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
+        if (Carbon::now()->format('Y-m-d') > session('tgl_selesai')) {
+            $today = Carbon::parse(session('tgl_selesai'));
+            $status = false;
+        } else {
+            $status = true;
+            $today = Carbon::now();
+        }
+
+        $startOfWeek = $today->copy()->startOfWeek();
+        $endOfWeek = $today->isAfter(Carbon::now()->endOfWeek(Carbon::FRIDAY)) ? Carbon::now()->endOfWeek(Carbon::FRIDAY) : $today;
+
+        $recent = AktifitasModel::whereDate('tanggal', $today)->where('uuid_user', session('uuid'))->orderBy('created_at', 'desc')->get();
+        $aktifitas = AktifitasModel::whereBetween('tanggal', [$startOfWeek, $endOfWeek])->where('uuid_user', session('uuid'))->selectRaw('DATE(tanggal) as day, COUNT(*) as count')->groupBy('day')->orderBy('day', 'asc')->get();
+
         return view('user/dashboarduser', [
             'title' => 'Dashboard',
+            'total' => AktifitasModel::where('uuid_user', session('uuid'))->count(),
+            'totalPending' => AktifitasModel::where('uuid_user', session('uuid'))->where('is_verified', 0)->count(),
+            'totalAcc' => AktifitasModel::where('uuid_user', session('uuid'))->where('is_verified', 1)->count(),
+            'recent' => $recent,
+            'data' => $aktifitas,
+            'status' => $status
         ]);
     }
 
-    public function profile(Request $request)
+    public function profile()
     {
         return view('user/profileuser', [
             'title' => 'Profile',
             'profile' => DataUser::find(session('id')),
             'aktifitas' => AktifitasModel::where('uuid_user', session('uuid'))->where('is_verified', 1)->count(),
-            'pending' => AktifitasModel::where('uuid_user', session('uuid'))->where('is_verified', 0)->count()
+            'pending' => AktifitasModel::where('uuid_user', session('uuid'))->where('is_verified', 0)->count(),
         ]);
     }
 
-    public function login(Request $request)
+    public function login()
     {
         return view('user/loginuser', [
             'title' => 'Login',
@@ -100,7 +121,7 @@ class User extends Controller
         }
     }
 
-    public function changepass(Request $request)
+    public function changepass()
     {
         return view('user/changepass', [
             'title' => 'Ganti Password',

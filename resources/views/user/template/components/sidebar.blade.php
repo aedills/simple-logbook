@@ -11,14 +11,21 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('user.aktifitasuser.upload.*') ? '' : 'collapsed' }}" href="{{route('user.aktifitasuser.upload.index')}}">
-            <i class="bi bi-box-arrow-in-down"></i>
+            <i class="bi bi-upload"></i>
             <span>Upload Aktifitas</span>
         </a>
     </li>
 
     <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('user.aktifitasuser.pending') ? '' : 'collapsed' }}" href="{{route('user.aktifitasuser.pending')}}">
+            <i class="bi bi-clock"></i>
+            <span>Pending Aktifitas</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('user.aktifitasuser.history') ? '' : 'collapsed' }}" href="{{route('user.aktifitasuser.history')}}">
-            <i class="bi bi-clock-history"></i>
+            <i class="bi bi-calendar-week"></i>
             <span>History Aktifitas</span>
         </a>
     </li>

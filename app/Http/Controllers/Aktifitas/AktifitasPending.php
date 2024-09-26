@@ -10,7 +10,8 @@ class AktifitasPending extends Controller
 {
     public function index(Request $request)
     {
-        $aktifitas = AktifitasModel::where('is_verified', 0)->join('data_user', 'data_user.uuid', '=', 'data_aktifitas.uuid_user')
+        $aktifitas = AktifitasModel::where('is_verified', 0)
+            ->join('data_user', 'data_user.uuid', '=', 'data_aktifitas.uuid_user')
             ->orderBy('data_aktifitas.tanggal', 'asc')
             ->select(
                 'data_aktifitas.id',
@@ -30,21 +31,22 @@ class AktifitasPending extends Controller
         ]);
     }
 
-    public function updateBulkStatus(Request $request)
-    {
-        dd($request);
-    }
-
     public function updateStatus(Request $request)
     {
         $aktifitas = AktifitasModel::where('id', $request->id)->first();
 
         if ($aktifitas) {
             $aktifitas->is_verified = 1;
+            $aktifitas->verified_by_uuid = session('uuid');
             $aktifitas->save();
             return  back()->with('success', 'Berhasil Memverifikasi');
         } else {
             return back()->with('error', 'tidak berhasil')->withInput();
         }
+    }
+
+    public function updateBulkStatus(Request $request)
+    {
+        dd($request);
     }
 }

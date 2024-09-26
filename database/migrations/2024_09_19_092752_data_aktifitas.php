@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('keterangan');
             $table->string('foto')->default('default.png');
             $table->boolean('is_verified');
+            $table->string('verified_by_uuid', 255)->default('0');
+            $table->enum('status', ['ditolak', 'diterima'])->nullable();
             $table->timestamps();
         });
     }
