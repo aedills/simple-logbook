@@ -7,6 +7,7 @@ use App\Models\DataUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use \Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
 class Magang extends Controller
@@ -24,7 +25,7 @@ class Magang extends Controller
         try {
             $request->validate([
                 'nama' => 'required|string|max:100',
-                'username' => 'required|string|max:25',
+                'username' => 'required|string|max:25|unique:data_user,username',
                 'role' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'tgl_selesai' => 'required|date',
@@ -62,6 +63,11 @@ class Magang extends Controller
             }
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (QueryException $err) {
+            if ($err->getCode() == 23000) {
+                return back()->with('error', 'Username telah digunakan.')->withInput();
+            }
+            return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         }
@@ -73,7 +79,7 @@ class Magang extends Controller
             $request->validate([
                 'id' => 'required|string',
                 'nama' => 'required|string|max:100',
-                'username' => 'required|string|max:25',
+                'username' => 'required|string|max:25|unique:data_user,username',
                 'role' => 'required|string|max:100',
                 'tgl_mulai' => 'required|date',
                 'tgl_selesai' => 'required|date',
@@ -115,6 +121,11 @@ class Magang extends Controller
             }
         } catch (ValidationException) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (QueryException $err) {
+            if ($err->getCode() == 23000) {
+                return back()->with('error', 'Username telah digunakan.')->withInput();
+            }
+            return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika memperbarui data')->withInput();
         }

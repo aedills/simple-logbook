@@ -64,7 +64,7 @@ class Admin extends Controller
                         return redirect()->route('auth.changePass')->with('success', 'Berhasil Login. Harap ubah password Anda terlebih dahulu');
                     }
 
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard')->with('success', 'Berhasil Login');
                 } else {
                     return back()->with('error', 'Password yang Anda masukkan salah. Silahkan coba lagi.')->withInput();
                 }

@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use \Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
 class Staf extends Controller
@@ -24,7 +25,7 @@ class Staf extends Controller
         try {
             $request->validate([
                 'nama' => 'required|string|max:100',
-                'username' => 'required|string|max:25',
+                'username' => 'required|string|max:25|unique:data_user,username',
                 'role' => 'required|string|max:100',
                 'profile' => 'file|max:5120'
             ]);
@@ -56,8 +57,16 @@ class Staf extends Controller
             } else {
                 return back()->with('error', 'Gagal menambahkan data')->withInput();
             }
-        } catch (ValidationException) {
+        } catch (ValidationException $e) {
+            if ($e->validator->errors()->has('username')) {
+                return back()->with('error', 'Username telah dogunakan')->withInput();
+            }
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (QueryException $err) {
+            if ($err->getCode() == 23000) {
+                return back()->with('error', 'Username telah digunakan.')->withInput();
+            }
+            return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         }
@@ -69,7 +78,7 @@ class Staf extends Controller
             $request->validate([
                 'id' => 'required|string',
                 'nama' => 'required|string|max:100',
-                'username' => 'required|string|max:25',
+                'username' => 'required|string|max:25|unique:data_user,username',
                 'role' => 'required|string|max:100',
                 'profile' => 'file|max:5120'
             ]);
@@ -109,6 +118,11 @@ class Staf extends Controller
             }
         } catch (ValidationException $e) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
+        } catch (QueryException $err) {
+            if ($err->getCode() == 23000) {
+                return back()->with('error', 'Username telah digunakan.')->withInput();
+            }
+            return back()->with('error', 'Terdapat kesalahan ketika menambahkan data')->withInput();
         } catch (\Exception $err) {
             return back()->with('error', 'Terdapat kesalahan ketika memperbarui data')->withInput();
         }

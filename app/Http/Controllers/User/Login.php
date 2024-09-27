@@ -41,9 +41,9 @@ class Login extends Controller
                     ]);
 
                     if (!$user->is_change_pass) {
-                        return redirect()->route('user.changepass');
+                        return redirect()->route('user.changepass')->with('success', 'Berhasil Login. Harap ubah password Anda terlebih dahulu');
                     }
-                    return redirect()->route('user.dashboarduser');
+                    return redirect()->route('user.dashboarduser')->with('success', 'Berhasil Login.');
                 } else {
                     return back()->with('error', 'Password yang Anda masukkan salah. Silahkan coba lagi.')->withInput();
                 }

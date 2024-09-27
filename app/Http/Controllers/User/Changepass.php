@@ -44,7 +44,7 @@ class Changepass extends Controller
                 $user->is_change_pass = 1;
                 $user->save();
 
-                return redirect()->route('user.dashboarduser');
+                return redirect()->route('user.dashboarduser')->with('success', 'Berhasil mengubah password. Gunakan password baru Anda untuk login berikutnya.');
             }
         } catch (ValidationException $e) {
             return back()->with('error', 'Terdapat kesalahan pada input form')->withInput();
