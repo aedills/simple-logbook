@@ -95,21 +95,10 @@
                                     <div class="row mb-3">
                                         <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="username" type="text" class="form-control" id="username" value="{{$profile->username}}">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">Tanggal Mulai</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($profile->tgl_mulai)->format('d M Y') }}" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">Tanggal Selesai</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($profile->tgl_selesai)->format('d M Y') }}" disabled>
+                                            <input name="username" type="text" class="form-control" id="username" value="{{$profile->username}}" {{$profile->username == 'admin' ? 'disabled' : ''}}>
+                                            @if($profile->username == 'admin')
+                                            <span style="font-style: italic; font-size: smaller;">Akun ini adalah 'Super Admin', Anda tidak dapat mengubah username.</span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -131,7 +120,7 @@
                                 <form action="{{ route('admin.doUpdatePassword') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
-                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password Sekarang</label>
+                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group">
                                                 <input name="currentPassword" type="password" class="form-control" id="currentPassword">
@@ -141,7 +130,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Password Baru</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group">
                                                 <input name="newPassword" type="password" class="form-control" id="newPassword">

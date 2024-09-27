@@ -93,7 +93,7 @@
                                 <!-- Profile Edit Form -->
                                 <form action="{{ route('user.updateProfile') }}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    
+
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Foto Profile</label>
                                         <div class="col-md-8 col-lg-9">
@@ -150,7 +150,7 @@
                                 <form action="{{ route('auth.updatePassword') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
-                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password Sekarang</label>
+                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group">
                                                 <input name="currentPassword" type="password" class="form-control" id="currentPassword">
@@ -160,7 +160,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Password Baru</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group">
                                                 <input name="newPassword" type="password" class="form-control" id="newPassword">
