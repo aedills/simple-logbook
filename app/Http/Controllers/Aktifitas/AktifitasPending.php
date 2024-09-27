@@ -34,7 +34,7 @@ class AktifitasPending extends Controller
 
     public function updateStatus(Request $request)
     {
-        $aktifitas = AktifitasModel::where('id', $request->id)->first();
+        $aktifitas = AktifitasModel::find($request->id);
 
         if ($aktifitas) {
             $aktifitas->is_verified = 1;
@@ -42,7 +42,18 @@ class AktifitasPending extends Controller
             $aktifitas->save();
             return  back()->with('success', 'Berhasil Memverifikasi');
         } else {
-            return back()->with('error', 'tidak berhasil')->withInput();
+            return back()->with('error', 'Data tidak ditemukan')->withInput();
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        $aktifitas = AktifitasModel::find($request->id);
+        if ($aktifitas) {
+            $aktifitas->delete();
+            return  back()->with('success', 'Berhasil menghapus item');
+        } else {
+            return back()->with('error', 'Data tidak ditemukan')->withInput();
         }
     }
 
@@ -50,21 +61,31 @@ class AktifitasPending extends Controller
     {
         try {
             $request->validate([
-                'pendingItem' => 'array|required'
+                'action' => 'string|required',
+                'pendingItem' => 'array|required',
             ]);
 
-            foreach ($request->pendingItem as $id) {
-                $item = AktifitasModel::find($id);
-
-                $item->is_verified = 1;
-                $item->verified_by_uuid = session('uuid');
-
-                $item->save();
+            if ($request->action == 'accept') {
+                foreach ($request->pendingItem as $id) {
+                    $item = AktifitasModel::find($id);
+                    if ($item) {
+                        $item->is_verified = 1;
+                        $item->verified_by_uuid = session('uuid');
+                        $item->save();
+                    }
+                }
+                return back()->with('success', 'Berhasil melakukan verifikasi');
+            } elseif ($request->action == 'decline') {
+                foreach ($request->pendingItem as $id) {
+                    $item = AktifitasModel::find($id);
+                    if ($item) {
+                        $item->delete();
+                    }
+                }
+                return back()->with('success', 'Berhasil menghapus item');
             }
-
-            return back()->with('success', 'Berhasil melakukan verifikasi');
         } catch (ValidationException) {
-            return back()->with('error', 'Tidak ada data yang dipilih')->withInput();
+            return back()->with('error', 'Tidak ada aktifitas yang dipilih')->withInput();
         } catch (\Exception) {
             return back()->with('error', 'Terdapat kesalahan ketika mengolah data')->withInput();
         }

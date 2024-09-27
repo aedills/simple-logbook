@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 </head>
 
-<body class="bg-[url('/assets/22.jpg')] bg-cover">
+<body class="bg-[url('/assets/loginpage.jpg')] bg-cover">
     <div class="min-h-screen flex items-center justify-center gap-10">
         <div class="md:bg-slate-100 p-8 rounded-lg sm:shadow-2xl w-full max-w-md">
             <h2 class="text-2xl font-bold text-center text-white md:text-black">Welcome Back...</h2>

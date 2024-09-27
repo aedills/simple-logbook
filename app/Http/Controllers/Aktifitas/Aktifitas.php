@@ -28,7 +28,7 @@ class Aktifitas extends Controller
     {
         $query = AktifitasModel::query();
 
-        if ($request->has('uuid')) {
+        if ($request->uuid != 'all') {
             $query->where('uuid_user', $request->uuid);
         }
 

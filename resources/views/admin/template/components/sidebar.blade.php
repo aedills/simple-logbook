@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.aktifitas.index')}}" class="{{ request()->routeIs('admin.aktifitas.index') ? 'active' : '' }}">
+                <a href="{{ route('admin.aktifitas.index')}}" class="{{ request()->routeIs('admin.aktifitas.index') || request()->routeIs('admin.aktifitas.filter') ? 'active' : '' }}">
                     <i class="bi bi-circle"></i><span>Aktifitas</span>
                 </a>
             </li>

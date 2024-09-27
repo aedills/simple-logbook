@@ -58,6 +58,9 @@ Route::prefix('admin')->name('admin.')->middleware('is.admin')->group(function (
         Route::get('/pending_aktifitas', [AktifitasPending::class, 'index'])->name('pending');
         Route::post('/update', [AktifitasPending::class, 'updateStatus'])->name('update');
         Route::post('/updateBulk', [AktifitasPending::class, 'updateBulkStatus'])->name('updateBulk');
+
+        Route::post('/delete', [AktifitasPending::class, 'delete'])->name('delete');
+        Route::post('/deleteBulk', [AktifitasPending::class, 'deleteBulk'])->name('deleteBulk');
     });
 
     // Data user
