@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <!-- Batas Awal -->
                         <div class="row mb-3">
-                            <label for="from" class="col-sm-2 col-form-label">From</label>
+                            <label for="from" class="col-sm-2 col-form-label">From<span style="color: red;">**</span></label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" name="from" id="from" value="{{$form_from ? $form_from : ''}}">
                             </div>
@@ -45,14 +45,15 @@
 
                         <!-- Batas Akhir -->
                         <div class="row mb-3">
-                            <label for="to" class="col-sm-2 col-form-label">To</label>
+                            <label for="to" class="col-sm-2 col-form-label">To<span style="color: red;">**</span></label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" name="to" id="to" value="{{$form_to ? $form_to : ''}}">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <span style="color: red;">*</span><span style="font-style: italic; font-size: smaller;">Kolom ini wajib diisi. Harap isi informasi ini.</span>
+                        <span style="color: red;">*</span><span style="font-style: italic; font-size: smaller;">Kolom ini wajib diisi. Harap isi informasi ini.</span><br>
+                        <span style="color: red;">**</span><span style="font-style: italic; font-size: smaller;">Opsional.</span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
                         <button type="submit" form="filterForm" class="btn btn-outline-primary btn-sm">Tampilkan Aktifitas</button>
@@ -128,6 +129,11 @@
 
                     var modal = $(this);
                     modal.find('#image-preview').attr('src', path + filename);
+                });
+
+                $('#from').on('change', function() {
+                    var fromDate = $(this).val();
+                    $('#to').attr('min', fromDate);
                 });
             });
         </script>

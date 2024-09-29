@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Aktifitas\Aktifitas;
 use App\Models\Admin as ModelsAdmin;
 use App\Models\AktifitasModel;
 use App\Models\DataUser;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -15,22 +17,58 @@ class Admin extends Controller
 {
     public function index(Request $request)
     {
-        $magang = DataUser::where('role', 'magang')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())->count();
-        $pkl = DataUser::where('role', 'pkl')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())->count();
+        $today = Carbon::today();
+        $startOfWeek = $today->copy()->startOfWeek(Carbon::MONDAY);
+        $endOfWeek = $today->greaterThanOrEqualTo(Carbon::now()->endOfWeek(Carbon::FRIDAY)) ? Carbon::now()->endOfWeek(Carbon::FRIDAY) : $today;
+        $dateRange = CarbonPeriod::create($startOfWeek, $endOfWeek);
+
+        $user = DataUser::where('tgl_mulai', '<=', $today)->where('tgl_selesai', '>=', $today)->get();
+
+        $dataPerUser = [];
+        foreach ($user as $u) {
+            $counted = [];
+            $aa = 0;
+            foreach ($dateRange as $date) {
+                $counted[$aa] = AktifitasModel::where('uuid_user', $u->uuid)->whereDate('tanggal', $date->format('Y-m-d'))->count();
+                $aa++;
+                if ($aa == 5) {
+                    break;
+                }
+            }
+            $dataPerUser[] = array(
+                'nama' => $u->nama,
+                'data' => $counted
+            );
+        }
+
+        $graphData = [];
+        $index = 0;
+        foreach ($dateRange as $daaa) {
+            $graphData[$index] = array(
+                'date' => $daaa->format('Y-m-d'),
+            );
+            $index++;
+            if ($index == 5) {
+                break;
+            }
+        }
+
+        $magang = DataUser::where('role', 'magang')->where('tgl_mulai', '<=', $today)->where('tgl_selesai', '>=', $today)->count();
+        $pkl = DataUser::where('role', 'pkl')->where('tgl_mulai', '<=', $today)->where('tgl_selesai', '>=', $today)->count();
         $totalUser = $magang + $pkl;
 
-        // $dataAktfitasMagang = DataUser::where('role', 'magang')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())
-        //     ->whereHas('aktifitas', function ($query) {
-        //         $query->groupBy('tanggal');
-        //     })->with('aktifitas')->get();
-
-        // dd($dataAktfitasMagang);
+        $recentUpload = AktifitasModel::whereDate('created_at', $today)->with('upload_by')->orderBy('created_at', 'desc')->get();
 
         return view('admin/dashboard', [
             'title' => 'Dashboard',
             'totalUser' => $totalUser,
             'magang' => $magang,
             'pkl' => $pkl,
+
+            'dataPerUser' => $dataPerUser,
+            'graphData' => $graphData,
+
+            'recent' => $recentUpload
         ]);
     }
 
@@ -140,7 +178,7 @@ class Admin extends Controller
                 'profile' => 'file|max:5120'
             ]);
 
-            if(strtolower($request->username) == 'admin'){
+            if (strtolower($request->username) == 'admin') {
                 return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
             }
 
