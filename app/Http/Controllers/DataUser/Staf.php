@@ -30,6 +30,10 @@ class Staf extends Controller
                 'profile' => 'file|max:5120'
             ]);
 
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
+
             $staf = new Admin();
 
             $staf->uuid = Str::uuid();
@@ -82,6 +86,10 @@ class Staf extends Controller
                 'role' => 'required|string|max:100',
                 'profile' => 'file|max:5120'
             ]);
+
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
 
             $staf = Admin::find($request->id);
 

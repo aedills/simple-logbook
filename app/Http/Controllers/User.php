@@ -66,6 +66,10 @@ class User extends Controller
                 'profile' => 'nullable|file|max:5120'
             ]);
 
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
+            
             $user = DataUser::find(session('id'));
 
             $user->nama = $request->nama;

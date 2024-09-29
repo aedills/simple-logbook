@@ -140,6 +140,10 @@ class Admin extends Controller
                 'profile' => 'file|max:5120'
             ]);
 
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
+
             $staf = ModelsAdmin::find(session('id'));
 
             $staf->nama = $request->nama;

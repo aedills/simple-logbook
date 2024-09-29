@@ -32,6 +32,10 @@ class Magang extends Controller
                 'profile' => 'nullable|file|max:5120'
             ]);
 
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
+
             $user = new DataUser();
 
             $user->uuid = Str::uuid();
@@ -85,6 +89,10 @@ class Magang extends Controller
                 'tgl_selesai' => 'required|date',
                 'profile' => 'nullable|file|max:5120'
             ]);
+
+            if(strtolower($request->username) == 'admin'){
+                return back()->with('error', 'Anda tidak boleh menggunakan username tersebut!')->withInput();
+            }
 
             $user = DataUser::find($request->id);
 
