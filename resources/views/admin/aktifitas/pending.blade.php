@@ -25,20 +25,29 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
+                                    @if(session('role') != 'admin')
                                     <th>?</th>
+                                    @endif
+
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>Judul</th>
                                     <th>Keterangan</th>
                                     <th>Foto</th>
                                     <th>Status</th>
+
+                                    @if(session('role') != 'admin')
                                     <th style="width: 14%;">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($aktifitas as $item)
                                 <tr>
+                                    @if(session('role') != 'admin')
                                     <td><input class="inputCheck" type="checkbox" name="pendingItem[]" id="pendingItem{{$item->id}}" value="{{$item->id}}"></td>
+                                    @endif
+
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                     <td>{{ $item->judul }}</td>
@@ -58,12 +67,16 @@
                                             {{ $item->is_verified ? 'Verified' : 'Pending' }}
                                         </span>
                                     </td>
+
+                                    @if(session('role') != 'admin')
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center gap-1">
                                             <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#verifModal" data-bs-id="{{ $item->id }}" data-bs-judul="{{ $item->judul}}"> Verifikasi</button>
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#declineModal" data-bs-id="{{ $item->id }}" data-bs-judul="{{ $item->judul}}"> Tolak</button>
                                         </div>
                                     </td>
+                                    @endif
+
                                 </tr>
                                 @empty
                                 <tr>
@@ -72,6 +85,8 @@
                                 @endforelse
                             </tbody>
                         </table>
+
+                        @if(session('role') != 'admin')
                         <div class="d-flex justify-content-between align-items-center">
                             <button type="button" id="selectAll" class="btn btn-sm btn-outline-primary">Pilih Semua</button>
                             <div>
@@ -79,6 +94,8 @@
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#verifBulkModal" data-bs-action="decline"> Tolak</button>
                             </div>
                         </div>
+                        @endif
+
                     </form>
 
 
@@ -103,6 +120,7 @@
                         </div>
                     </div>
 
+                    @if(session('role') != 'admin')
                     <!-- Verif Modal -->
                     <div class="modal fade" id="verifModal" tabindex="-1">
                         <div class="modal-dialog">
@@ -158,6 +176,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -224,5 +243,5 @@
             });
         </script>
     </section>
-</main><!-- End #main -->
+</main>
 @endsection

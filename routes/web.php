@@ -32,7 +32,6 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('changePass', [Admin::class, 'changePass'])->name('changePass');
     Route::post('doChangePass', [Admin::class, 'doChangePass'])->name('doChangePass');
 
-
     // User Auth
     Route::get('userLogin', [Login::class, 'index'])->name('userLogin');
     Route::post('doUserLogin', [Login::class, 'doLogin'])->name('doUserLogin');
@@ -101,7 +100,6 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
     Route::get('/changepass', [Changepass::class, 'index'])->name('changepass');
     Route::post('/doChangePass', [Changepass::class, 'doChangePass'])->name('doChangePass');
 
-
     // Aktifitas / Kegiatan
     Route::prefix('aktifitasuser')->name('aktifitasuser.')->group(function () {
         Route::prefix('upload')->name('upload.')->group(function () {
@@ -113,7 +111,6 @@ Route::prefix('user')->name('user.')->middleware('is.user')->group(function () {
         Route::get('/pending', [AktifitasCC::class, 'pending'])->name('pending');
         Route::post('/update', [AktifitasCC::class, 'update'])->name('update');
         Route::post('/delete', [AktifitasCC::class, 'delete'])->name('delete');
-
 
         Route::get('/download-pdf/{uuid}', [User::class, 'downloadAktifitasPDF']);
     });

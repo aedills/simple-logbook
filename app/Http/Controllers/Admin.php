@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin as ModelsAdmin;
+use App\Models\AktifitasModel;
+use App\Models\DataUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -12,8 +15,22 @@ class Admin extends Controller
 {
     public function index(Request $request)
     {
+        $magang = DataUser::where('role', 'magang')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())->count();
+        $pkl = DataUser::where('role', 'pkl')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())->count();
+        $totalUser = $magang + $pkl;
+
+        // $dataAktfitasMagang = DataUser::where('role', 'magang')->where('tgl_mulai', '<=', Carbon::today())->where('tgl_selesai', '>=', Carbon::today())
+        //     ->whereHas('aktifitas', function ($query) {
+        //         $query->groupBy('tanggal');
+        //     })->with('aktifitas')->get();
+
+        // dd($dataAktfitasMagang);
+
         return view('admin/dashboard', [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'totalUser' => $totalUser,
+            'magang' => $magang,
+            'pkl' => $pkl,
         ]);
     }
 

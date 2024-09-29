@@ -21,7 +21,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Managemen Data Staf</h5>
+                            @if(session('role') == 'admin')
                             <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-1"></i> Add</button>
+                            @endif
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -35,7 +37,10 @@
                                         <th>Username</th>
                                         <th>Role</th>
                                         <th class="sorting: false" style="width: 10%;">Foto</th>
+
+                                        @if(session('role') == 'admin')
                                         <th class="sorting: false" style="width: 15%;">Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,12 +52,16 @@
                                         <td>
                                             <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-foto="{{$list->foto}}"><i class="bi bi-eye me-1"></i> Lihat</button>
                                         </td>
+
+                                        @if(session('role') == 'admin')
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center gap-2">
                                                 <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="{{$list->id}}" data-bs-nama="{{$list->nama}}" data-bs-username="{{$list->username}}" data-bs-role="{{$list->role}}" data-bs-foto="{{$list->foto}}"><i class="bi bi-pencil me-1"></i> Edit</button>
                                                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{$list->id}}" data-bs-nama="{{$list->nama}}"><i class="bi bi-trash me-1"></i> Delete</button>
                                             </div>
                                         </td>
+                                        @endif
+                                        
                                     </tr>
                                     @endforeach
                                 </tbody>
