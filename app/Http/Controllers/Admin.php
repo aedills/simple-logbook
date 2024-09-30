@@ -58,6 +58,7 @@ class Admin extends Controller
         $totalUser = $magang + $pkl;
 
         $recentUpload = AktifitasModel::whereDate('created_at', $today)->with('upload_by')->orderBy('created_at', 'desc')->get();
+        $recentUploadTotal = AktifitasModel::whereDate('created_at', $today)->with('upload_by')->orderBy('created_at', 'desc')->count();
 
         return view('admin/dashboard', [
             'title' => 'Dashboard',
@@ -68,7 +69,8 @@ class Admin extends Controller
             'dataPerUser' => $dataPerUser,
             'graphData' => $graphData,
 
-            'recent' => $recentUpload
+            'recent' => $recentUpload,
+            'recentTotal' => $recentUploadTotal,
         ]);
     }
 

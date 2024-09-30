@@ -155,7 +155,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Ajuan Verifikasi Terbaru <span>| Hari Ini ( total)</span></h5>
+                                <h5 class="card-title">Ajuan Verifikasi Terbaru <span>| Hari Ini ({{$recentTotal}} total)</span></h5>
 
                                 <div class="activity">
                                     @foreach($recent as $list)
